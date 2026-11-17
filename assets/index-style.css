@@ -12,6 +12,7 @@
     --primary-blue-25: #5194cb25;
     --primary-orange: #ffb84e;
     --primary-orange-35: #ffb84e35;
+    --primary-red: #ff4e4e;
 
     --neon-green: #3cfe7a;
 
@@ -467,16 +468,28 @@ aside {
 }
 
 .cart-header {
-    justify-content: space-between;
     display: flex;
+    width: 100%;
+    justify-content: space-between;
     align-items: center;
     font-size: var(--normal-text);
     font-weight: 600;
     margin-bottom: 1rem;
 }
 
+.cart-close {
+    background-color: var(--primary-red);
+    color: var(--white);
+    font-weight: 600;
+    font-size: var(--semi-large-text);
+    border: none;
+    border-radius: 1rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+}
+
 .cart-items {
-    flex: 1;
+    flex: 2;
     width: 90%;
     min-height: 0;
     border-radius: 1rem;
@@ -491,7 +504,8 @@ aside {
     justify-content: space-between;
     background-color: var(--white);
     align-items: center;
-    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
     margin-bottom: 1rem;
 }
 
@@ -505,7 +519,12 @@ aside {
 .cart-item-info {
     display: flex;
     gap: 0.25rem;
-    margin-left: 1rem;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
 }
 
 .cart-item-name {
@@ -524,6 +543,25 @@ aside {
     gap: 0.5rem;
 }
 
+.remove-item-btn {
+    background-color: var(--primary-red);
+    color: var(--white);
+    font-weight: 600;
+    font-size: var(--semi-large-text);
+    border: none;
+    border-radius: 1rem;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+}
+
+.cart-list-information {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    flex-direction: column;
+    margin-top: auto;
+}
+
 .cart-total {
     display: flex;
     width: 100%;
@@ -531,8 +569,17 @@ aside {
     font-size: var(--semi-large-text);
     font-weight: 600;
     border-top: 1px solid var(--gray-2);
-    padding: 1rem 0;
-    margin: auto 0 1rem;
+    padding: 1rem 0 0;
+    margin-bottom: 1rem;
+}
+
+#checkout-btn {
+    border: none;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: var(--semi-large-text);
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .cart-overlay {

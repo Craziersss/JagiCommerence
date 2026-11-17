@@ -7,7 +7,6 @@ export const catalogData = [
         type: "Apple",
         brand: "Apple",
         name: "iPhone 15 Pro 128GB Titanium",
-        priceString: "Rp 18.999.000",
         price: 18999000,
         discount: 15,
         description:
@@ -41,7 +40,6 @@ export const catalogData = [
         type: "Android",
         brand: "Samsung",
         name: "Samsung Galaxy S24 256GB",
-        priceString: "Rp 13.499.000",
         price: 13499000,
         discount: 15,
         description:
@@ -75,7 +73,6 @@ export const catalogData = [
         type: "Power Accessories",
         brand: "Anker",
         name: "Powerbank Anker 10K PD",
-        priceString: "Rp 349.000",
         price: 349000,
         discount: 5,
         description:
@@ -104,7 +101,6 @@ export const catalogData = [
         type: "Audio Gadget",
         brand: "Soundcore",
         name: "TWS Soundcore R50i",
-        priceString: "Rp 199.000",
         price: 199000,
         discount: 20,
         description:
@@ -133,10 +129,10 @@ export const catalogData = [
         id: 5,
         category: "hp",
         highlight: "BEST SELLER",
-        type: "Smartphone",
+        type: "Android",
         brand: "Xiaomi",
         name: "Xiaomi Redmi Note 13 Pro 5G",
-        priceString: "Rp 4.299.000",
+        price: 4299000,
         discount: 10,
         description:
             "Smartphone dengan kamera 200 MP, layar AMOLED, dan performa tangguh untuk aktivitas sehari-hari.",
@@ -165,10 +161,10 @@ export const catalogData = [
         id: 6,
         category: "hp",
         highlight: "NEW ARRIVAL",
-        type: "Smartphone",
+        type: "Android",
         brand: "Samsung",
         name: "Samsung Galaxy A55 5G",
-        priceString: "Rp 5.999.000",
+        price: 5999000,
         discount: 12,
         description:
             "Smartphone kelas menengah dengan layar Super AMOLED, kamera stabil, dan desain premium metal frame.",
@@ -191,10 +187,10 @@ export const catalogData = [
         id: 7,
         category: "hp",
         highlight: "PERFORMA GAMING",
-        type: "Smartphone",
+        type: "Android",
         brand: "POCO",
         name: "POCO X6 Pro 5G",
-        priceString: "Rp 4.799.000",
+        price: 4799000,
         discount: 15,
         description:
             "Smartphone berperforma tinggi dengan chipset Dimensity dan layar AMOLED untuk gaming serta multitasking.",
@@ -223,10 +219,10 @@ export const catalogData = [
         id: 8,
         category: "hp",
         highlight: "FAVORIT PELANGGAN",
-        type: "Smartphone",
+        type: "Android",
         brand: "OPPO",
         name: "OPPO Reno11 5G",
-        priceString: "Rp 5.999.000",
+        price: 5999000,
         discount: 10,
         description:
             "Smartphone dengan desain elegan, kamera portrait, dan pengisian daya cepat untuk menunjang produktivitas.",
@@ -255,10 +251,10 @@ export const catalogData = [
         id: 9,
         category: "hp",
         highlight: "CAMERA PHONE",
-        type: "Smartphone",
+        type: "Android",
         brand: "Vivo",
         name: "Vivo V30 5G",
-        priceString: "Rp 6.499.000",
+        price: 6499000,
         discount: 8,
         description:
             "Smartphone dengan kamera portrait ZEISS dan fitur Aura Light untuk hasil foto portrait yang menarik.",
@@ -287,10 +283,10 @@ export const catalogData = [
         id: 10,
         category: "hp",
         highlight: "FLAGSHIP",
-        type: "Smartphone",
+        type: "Apple",
         brand: "Apple",
         name: "iPhone 14 128GB",
-        priceString: "Rp 11.999.000",
+        price: 11999000,
         discount: 10,
         description:
             "iPhone dengan chip A15 Bionic, kamera ganda, dan fitur keamanan serta fotografi khas Apple.",
@@ -319,10 +315,10 @@ export const catalogData = [
         id: 11,
         category: "hp",
         highlight: "SMART CHOICE",
-        type: "Smartphone",
+        type: "Android",
         brand: "Infinix",
         name: "Infinix Note 40 Pro",
-        priceString: "Rp 3.499.000",
+        price: 3499000,
         discount: 12,
         description:
             "Smartphone dengan layar AMOLED melengkung, kamera 108 MP, dan teknologi pengisian daya modern.",
@@ -351,10 +347,10 @@ export const catalogData = [
         id: 12,
         category: "hp",
         highlight: "BUDGET FRIENDLY",
-        type: "Smartphone",
+        type: "Android",
         brand: "realme",
         name: "realme 12+ 5G",
-        priceString: "Rp 3.799.000",
+        price: 3799000,
         discount: 10,
         description:
             "Smartphone dengan desain premium, kamera Sony, layar AMOLED, dan pengisian cepat 67W.",
@@ -387,7 +383,7 @@ export const catalogData = [
         type: "Audio Gadget",
         brand: "Soundcore",
         name: "Soundcore Liberty 4 NC",
-        priceString: "Rp 899.000",
+        price: 899000,
         discount: 15,
         description:
             "TWS dengan adaptive active noise cancelling, suara berkualitas tinggi, dan daya tahan baterai panjang.",
@@ -419,7 +415,7 @@ export const catalogData = [
         type: "Audio Gadget",
         brand: "Samsung",
         name: "Samsung Galaxy Buds FE",
-        priceString: "Rp 1.199.000",
+        price: 1199000,
         discount: 10,
         description:
             "Earbuds dengan active noise cancelling, desain ergonomis, dan integrasi Galaxy Ecosystem.",
@@ -449,7 +445,7 @@ export const catalogData = [
         type: "Audio Gadget",
         brand: "JBL",
         name: "JBL Wave Buds",
-        priceString: "Rp 699.000",
+        price: 699000,
         discount: 12,
         description:
             "Earbuds dengan karakter suara bass khas JBL, desain nyaman, dan fitur tahan percikan air.",
@@ -480,7 +476,7 @@ export const catalogData = [
         type: "Audio Gadget",
         brand: "Redmi",
         name: "Redmi Buds 5",
-        priceString: "Rp 499.000",
+        price: 499000,
         discount: 10,
         description:
             "TWS terjangkau dengan active noise cancellation, suara jernih, dan desain minimalis.",
@@ -511,7 +507,7 @@ export const catalogData = [
         type: "Power Accessories",
         brand: "Xiaomi",
         name: "Xiaomi Power Bank 10000mAh",
-        priceString: "Rp 249.000",
+        price: 249000,
         discount: 5,
         description:
             "Powerbank praktis dengan kapasitas 10.000 mAh dan fitur pengisian cepat untuk perangkat sehari-hari.",
@@ -540,7 +536,7 @@ export const catalogData = [
         type: "Power Accessories",
         brand: "Baseus",
         name: "Baseus Bipow 20000mAh",
-        priceString: "Rp 399.000",
+        price: 399000,
         discount: 8,
         description:
             "Powerbank berkapasitas besar dengan layar indikator digital dan beberapa pilihan output pengisian.",
@@ -569,7 +565,7 @@ export const catalogData = [
         type: "Power Accessories",
         brand: "Aukey",
         name: "Aukey Powerbank 20000mAh",
-        priceString: "Rp 459.000",
+        price: 459000,
         discount: 10,
         description:
             "Powerbank untuk perjalanan dengan kapasitas besar dan teknologi pengisian cepat.",
@@ -598,7 +594,7 @@ export const catalogData = [
         type: "Power Accessories",
         brand: "Vivan",
         name: "Vivan Powerbank 10000mAh",
-        priceString: "Rp 179.000",
+        price: 179000,
         discount: 5,
         description:
             "Powerbank ekonomis dengan desain ringkas untuk mendukung kebutuhan pengisian daya harian.",
@@ -627,7 +623,7 @@ export const catalogData = [
         type: "Smartwatch",
         brand: "Xiaomi",
         name: "Xiaomi Smart Band 8",
-        priceString: "Rp 499.000",
+        price: 499000,
         discount: 10,
         description:
             "Smart band dengan layar AMOLED, pemantauan aktivitas, dan berbagai mode olahraga.",
@@ -657,7 +653,7 @@ export const catalogData = [
         type: "Wireless Mouse",
         brand: "Logitech",
         name: "Logitech Pebble M350",
-        priceString: "Rp 249.000",
+        price: 249000,
         discount: 8,
         description:
             "Mouse wireless dengan desain minimalis, suara klik senyap, dan bentuk yang mudah dibawa.",
@@ -686,7 +682,7 @@ export const catalogData = [
         type: "Keyboard",
         brand: "Royal Kludge",
         name: "Royal Kludge RK61",
-        priceString: "Rp 599.000",
+        price: 599000,
         discount: 10,
         description:
             "Keyboard mechanical compact 60 persen dengan konektivitas wireless dan desain minimalis.",
@@ -716,7 +712,7 @@ export const catalogData = [
         type: "Bluetooth Speaker",
         brand: "JBL",
         name: "JBL Go 3",
-        priceString: "Rp 499.000",
+        price: 499000,
         discount: 10,
         description:
             "Speaker Bluetooth portable dengan suara JBL Pro Sound, desain ringkas, dan ketahanan air serta debu.",

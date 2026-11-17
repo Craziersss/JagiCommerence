@@ -19,7 +19,7 @@ const catalogContainer = document.getElementById("catalog");
 const searchInput = document.getElementById("search-product");
 const clearSearchButton = document.getElementById("clear-search");
 const searchResult = document.getElementById("search-result");
-const categoryButtons = document.querySelectorAll("category-btn");
+const categoryButtons = document.querySelectorAll(".category-btn");
 const categoryParent = document.getElementById("filter-search");
 
 // variabel untuk semua yang ada di cart
@@ -30,6 +30,7 @@ const cartCloseBtn = document.getElementById("cart-close");
 const cartItemsContainer = document.getElementById("cart-items");
 const cartTotalContainer = document.getElementById("cart-total");
 const cartTotalPrice = document.getElementById("cart-total-price");
+const checkoutBtn = document.getElementById("checkout-btn");
 
 const modal = document.getElementById("spec-modal");
 const specDetail = document.getElementById("spec-detail");
@@ -131,7 +132,7 @@ function renderCatalog(products) {
         description.classList.add("desc");
         tags.classList.add("tags");
 
-        price.textContent = product.priceString;
+        price.textContent = `Rp ${product.price.toLocaleString("id-ID")}`;
         name.textContent = product.name;
         description.textContent = product.description;
         tags.append(createTags(product.spesification));
@@ -200,7 +201,7 @@ function renderCartItems() {
         const removeButton = document.createElement("button");
         removeButton.classList.add("remove-item-btn");
         removeButton.type = "button";
-        removeButton.textContent = "Hapus";
+        removeButton.textContent = "-";
 
         itemDetails.append(itemName, itemQuantity, itemPrice);
         itemInfo.append(itemImage, itemDetails);
@@ -288,7 +289,7 @@ function filterProducts() {
     const hasFilter = activeCategory !== "semua" || keyword !== "";
     searchResult.textContent = hasFilter
         ? `Menampilkan ${filtered.length} dari ${catalogData.length} produk`
-        : `Menampilkan ${catalogData.length} produk`;
+        : `Menampilkan semua produk`;
 }
 
 // Pendengar Search Bar & Category
@@ -358,6 +359,58 @@ cartBtn.addEventListener("click", () => {
 cartCloseBtn.addEventListener("click", () => {
     cartOverlay.classList.add("hidden");
     cartContainer.classList.add("hidden");
+});
+
+cartItemsContainer.addEventListener("click", (event) => {
+    const isRemoveBtn = event.target.closest(".remove-item-btn");
+    if (!isRemoveBtn) return;
+
+    const cartItem = event.target.closest(".cart-item");
+    const itemName = cartItem.querySelector(".cart-item-name").textContent;
+    const itemToRemove = listKeranjang.find((item) => item.name === itemName);
+
+    if (itemToRemove) {
+        if (itemToRemove.quantity > 1) {
+            itemToRemove.quantity--;
+        } else {
+            listKeranjang = listKeranjang.filter(
+                (item) => item !== itemToRemove,
+            );
+        }
+    }
+
+    renderCartItems();
+});
+
+checkoutBtn.addEventListener("click", () => {
+    if (listKeranjang.length === 0) {
+        alert(
+            "Keranjang belanja kosong. Silakan tambahkan produk terlebih dahulu.",
+        );
+        return;
+    }
+
+    const totalPrice = listKeranjang.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0,
+    );
+
+    const confirmation = confirm(
+        `Total belanja Anda adalah Rp ${totalPrice.toLocaleString(
+            "id-ID",
+        )}. Apakah Anda ingin melanjutkan ke pembayaran?`,
+    );
+
+    if (confirmation) {
+        alert(
+            "Terima kasih telah berbelanja! Pesanan Anda akan segera diproses.",
+        );
+        listKeranjang = [];
+        cartCount = 0;
+        cartBtn.textContent = "keranjang (0)";
+        cartOverlay.classList.add("hidden");
+        cartContainer.classList.add("hidden");
+    }
 });
 
 document
