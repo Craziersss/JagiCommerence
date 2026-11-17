@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GadgetVerse | Katalog Gadget</title>
+
+        <link rel="stylesheet" href="assets/index-style.css" />
+
+        <!-- Icon Kit: -->
+        <script
+            src="https://kit.fontawesome.com/aa5e3516f1.js"
+            crossorigin="anonymous"
+        ></script>
+
+        <script type="module" src="script.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="title">
+                <span class="company-name">GADGETVERSE</span>
+                <p class="header-desc">GADGET & ACCESSORIES</p>
+            </div>
+
+            <nav>
+                <ul class="links">
+                    <li><a href="" class="link selected">Katalog HP</a></li>
+                    <li><a href="" class="link">Tentang Kami</a></li>
+                    <li><a href="" class="link">Hubungi Kami</a></li>
+                </ul>
+            </nav>
+
+            <button type="button" class="cart-btn" id="cart-button">keranjang (0)</button>
+        </header>
+
+        <main>
+            <section class="katalog" id="TOP">
+                <div class="hero-katalog">
+                    <div class="hero-text">
+                        <span class="attribute blue-box"
+                            >PROMO GADGET TERBARU AGUSTUS 2026</span
+                        >
+
+                        <h1 class="katalog-title">
+                            Dapatkan Gadget Impian & Aksesoris Original
+                            Bergaransi Resmi
+                        </h1>
+                        <p class="hero-desc">
+                            Toko ritel handphone dan aksesoris terlengkap di
+                            Indonesia. Belanja aman dengan jaminan keaslian
+                            100%, garansi resmi TAM/iBox dan layanan tukar
+                            tambah instan.
+                        </p>
+
+                        <div class="action">
+                            <button class="highlighted-btn">
+                                Lihat Produk Handphone
+                            </button>
+                            <button class="bone-btn">
+                                Rekomendasi Aksesori
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hero-img">
+                        <div class="img-container">
+                            <img src="assets/img/Image-1.jpeg" alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="short-info-boxs">
+                    <div class="short-info-box">
+                        <span class="short-info-title">100%</span>
+                        <p class="short-info-desc">ORIGINAL TAM & IBOX</p>
+                    </div>
+
+                    <div class="short-info-box">
+                        <span class="short-info-title">Gratis</span>
+                        <p class="short-info-desc">ONGKIR SELURUH INDONESIA</p>
+                    </div>
+
+                    <div class="short-info-box">
+                        <span class="short-info-title">Cicilan</span>
+                        <p class="short-info-desc">0% HINGGA 24 BULAN</p>
+                    </div>
+
+                    <div class="short-info-box no-border">
+                        <span class="short-info-title">Instant</span>
+                        <p class="short-info-desc">PENGIRIMAN 3 JAM TIBA</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="brands">
+                <span class="attribute">OFFICIAL BRAND PARTNERS</span>
+                <h1 class="hero-title">belanja Berdasarkan Brand</h1>
+                <p class="hero-desc">
+                    Cari gadget dan aksesori original langsung dari brand
+                    partner resmi kami.
+                </p>
+
+                <div class="brands-container" id="brand-container"></div>
+            </section>
+
+            <section class="hero">
+                <div class="scattered">
+                    <span class="scattered-decor MEGA-SALE"
+                        >MEGA SALE 11.11</span
+                    >
+                    <span class="scattered-decor Ongkir">Bebas Ongkir</span>
+                </div>
+                <span class="attribute">KATALOG SMARTPHONE & AKSESORI</span>
+                <h1 class="hero-title">Pilihan Handphone Terpopuler</h1>
+                <p class="hero-desc">
+                    Daftar handphone berspesifikasi tinggi, kamera canggih, dan
+                    beterai tahan lama dari brand global
+                </p>
+            </section>
+
+            <section class="catalog-tools" aria-label="Pencarian produk">
+                <div class="search-wrap">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input
+                        type="search"
+                        id="search-product"
+                        placeholder="Cari produk, contoh: iPhone..."
+                        autocomplete="off"
+                        aria-label="Cari produk"
+                    />
+                    <button type="button" id="clear-search" class="clear-search">Hapus</button>
+                </div>
+                <div class="category-filter" id="filter-search">
+                    <button type="button" class="category-btn active" data-category="semua">Semua</button>
+                    <button type="button" class="category-btn" data-category="Android">Android</button>
+                    <button type="button" class="category-btn" data-category="Apple">Apple</button>
+                    <button type="button" class="category-btn" data-category="Power Accessories">Power Accessories</button>
+                    <button type="button" class="category-btn" data-category="Audio Gadget">Audio Gadget</button>
+                </div>
+                <p id="search-result" class="search-result" aria-live="polite">
+                    Menampilkan semua produk
+                </p>
+            </section>
+
+            <section class="grid-catalogs" id="catalog"></section>
+
+            </div>
+
+            <div class="spec-modal" id="spec-modal">
+                <div class="spec-modal-backdrop" data-close-modal></div>
+                <section class="spec-modal-content" role="dialog" aria-modal="true" aria-labelledby="spec-title">
+                    <button type="button" class="modal-close" id="close-modal" aria-label="Tutup">&times;</button>
+                    <p class="attribute">DETAIL PRODUK</p>
+                    <h2 id="spec-title">Spesifikasi Produk</h2>
+                    <div id="spec-detail"></div>
+                </section>
+            </div>
+        </main>
+
+        <aside class="floating-btns">
+            <div class="sosmed-floating-btn">
+                <button class="sosmed-btn round-btn">
+                    <i class="fa-brands fa-instagram"></i>
+                </button>
+                <button class="sosmed-btn round-btn">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </button>
+                <button class="sosmed-btn round-btn">
+                    <i class="fa-brands fa-tiktok"></i>
+                </button>
+                <button class="sosmed-btn round-btn">
+                    <i class="fa-brands fa-facebook"></i>
+                </button>
+            </div>
+
+            <button class="top-btn round-btn">
+                <i class="fa-solid fa-angles-up"></i>
+            </button>
+        </aside>
+
+        <aside class="cart-container hidden" id="cart-container">
+            <div class="cart-header">
+                <h1 class="cart-title">
+                    <i class="fa-solid fa-cart-shopping"></i> Keranjang Belanja
+                </h1>
+
+                <button type="button" class="cart-close" id="cart-close">
+                    &times;
+                </button>
+            </div>
+
+            <div class="cart-items" id="cart-items">
+                <article class="cart-item">
+                    <div class="cart-item-info">
+                        <img src="" alt="">
+
+                        <div class="cart-item-details">
+                            <h2 class="cart-item-name"></h2>
+                            <p class="cart-item-price"></p>
+                            <p class="cart-item-quantity"></p>
+                        </div>
+                    </div>
+                    <button class="remove-item">-</button>
+                </article>
+            </div>
+
+            <div class="cart-total hidden" id="cart-total">
+                <p class="total-label">Total:</p>
+                <p class="total-price" id="cart-total-price">Rp 0</p>
+            </div>
+        </aside>
+
+        <aside class="cart-overlay hidden" id="cart-overlay"></aside>
+
+        <footer>
+            <div class="copyright">
+                <span class="company-name">GADGETVERSE INDONESIA LTD.</span>
+                <p class="desc">
+                    &copy; GadgetVerse Indonesia, Hak Cipta Dilindungi
+                    Undang-Undang
+                </p>
+                <ul class="tags">
+                    <li class="tag">100% Original TAM & iBox</li>
+                    <li class="tag">Cicilan 0% Hingga 24 Bulan</li>
+                    <li class="tag">Gratis Ongkir se-Indonesia</li>
+                    <li class="tag">Pengiriman Instan 3 Jam</li>
+                </ul>
+            </div>
+
+            <div class="social-medias">
+                <a href="" class="sosmed">Instagram</a>
+                <a href="" class="sosmed">X</a>
+                <a href="" class="sosmed">Tiktok</a>
+                <a href="" class="sosmed">FaceBook</a>
+            </div>
+
+            <div class="discount-reminder-box">
+                <p class="discount-reminder">
+                    Promo Berlaku hingga desember 2026
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
