@@ -132,7 +132,7 @@ function renderCatalog(products) {
         description.classList.add("desc");
         tags.classList.add("tags");
 
-        price.textContent = `Rp ${product.price.toLocaleString("id-ID")}`;
+        price.textContent = `Rp.${product.price.toLocaleString("id-ID")},00`;
         name.textContent = product.name;
         description.textContent = product.description;
         tags.append(createTags(product.spesification));
