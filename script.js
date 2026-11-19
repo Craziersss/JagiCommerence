@@ -13,14 +13,21 @@ const brandLogo = [
 ];
 
 let listKeranjang = [];
+let cardShownLimit = 8;
 
+const viewProductBtn = document.getElementById("view-product");
+const viewAccessoriesBtn = document.getElementById("view-accessories");
+
+const hero = document.getElementById("hero");
 const brandContainer = document.getElementById("brand-container");
 const catalogContainer = document.getElementById("catalog");
 const searchInput = document.getElementById("search-product");
 const clearSearchButton = document.getElementById("clear-search");
 const searchResult = document.getElementById("search-result");
+const sortPriceSelect = document.getElementById("sort-price");
 const categoryButtons = document.querySelectorAll(".category-btn");
 const categoryParent = document.getElementById("filter-search");
+const loadMoreBtn = document.getElementById("load-more-btn");
 
 // variabel untuk semua yang ada di cart
 const cartBtn = document.getElementById("cart-button");
@@ -72,7 +79,7 @@ function createTags(datas) {
     return fragment;
 }
 
-function renderCatalog(products) {
+function renderCatalog(products, fromSearch = false) {
     catalogContainer.replaceChildren();
 
     if (products.length === 0) {
@@ -84,7 +91,9 @@ function renderCatalog(products) {
         return;
     }
 
-    products.forEach((product) => {
+    products.forEach((product, i) => {
+        if (i >= cardShownLimit && !fromSearch) return;
+
         const card = document.createElement("article");
         card.classList.add("catalog-card");
         card.setAttribute("id", product.id);
@@ -149,7 +158,7 @@ function renderCatalog(products) {
         specButton.classList.add("bone-btn");
 
         buyButton.type = "button";
-        buyButton.textContent = "Beli Sekarang";
+        buyButton.textContent = "Masukan Keranjang";
 
         specButton.type = "button";
         specButton.textContent = "Spesifikasi";
@@ -194,7 +203,7 @@ function renderCartItems() {
 
         const itemPrice = document.createElement("p");
         itemPrice.classList.add("cart-item-price");
-        itemPrice.textContent = `Harga: ${item.priceString} per unit`;
+        itemPrice.textContent = `Harga: Rp.${item.price.toLocaleString("id-ID")},00 per unit`;
 
         totalPrice += item.quantity * item.price;
 
@@ -212,7 +221,7 @@ function renderCartItems() {
 
     cartItemsContainer.append(fragment);
 
-    cartTotalPrice.textContent = `Rp ${totalPrice.toLocaleString("id-ID")}`;
+    cartTotalPrice.textContent = `Rp.${totalPrice.toLocaleString("id-ID")},00`;
 }
 
 function cartUpdate(product) {
@@ -284,13 +293,35 @@ function filterProducts() {
         return matchesCategory && matchesKeyword;
     });
 
-    renderCatalog(filtered);
+    if (sortPriceSelect.value !== "default") {
+        const sortDirection = sortPriceSelect.value === "asc" ? 1 : -1;
+        filtered.sort(
+            (first, second) => (first.price - second.price) * sortDirection,
+        );
+    }
 
     const hasFilter = activeCategory !== "semua" || keyword !== "";
+    renderCatalog(filtered, hasFilter);
+    loadMoreBtn.style.display =
+        hasFilter || filtered.length <= cardShownLimit ? "none" : "flex";
+
     searchResult.textContent = hasFilter
         ? `Menampilkan ${filtered.length} dari ${catalogData.length} produk`
         : `Menampilkan semua produk`;
 }
+
+// view product and accessories button event listeners
+viewProductBtn.addEventListener("click", () => {
+    hero.scrollIntoView({ behavior: "smooth" });
+});
+
+viewAccessoriesBtn.addEventListener("click", () => {
+    hero.scrollIntoView({ behavior: "smooth" });
+
+    activeCategory = "Gadget Accessories";
+
+    filterProducts();
+});
 
 // Pendengar Search Bar & Category
 categoryParent.addEventListener("click", (event) => {
@@ -308,6 +339,10 @@ categoryParent.addEventListener("click", (event) => {
 });
 
 searchInput.addEventListener("input", filterProducts);
+sortPriceSelect.addEventListener("change", () => {
+    cardShownLimit = 8;
+    filterProducts();
+});
 clearSearchButton.addEventListener("click", () => {
     searchInput.value = "";
     filterProducts();
@@ -408,9 +443,24 @@ checkoutBtn.addEventListener("click", () => {
         listKeranjang = [];
         cartCount = 0;
         cartBtn.textContent = "keranjang (0)";
+        cartTotalPrice.textContent = "Rp.0,00";
         cartOverlay.classList.add("hidden");
         cartContainer.classList.add("hidden");
+
+        renderCartItems();
     }
+});
+
+//Menaikan limit kartu katalog
+loadMoreBtn.addEventListener("click", () => {
+    cardShownLimit += 6;
+
+    if (cardShownLimit >= catalogData.length) {
+        cardShownLimit = catalogData.length;
+        loadMoreBtn.style.display = "none";
+    }
+
+    filterProducts();
 });
 
 document

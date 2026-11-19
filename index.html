@@ -53,10 +53,10 @@
                         </p>
 
                         <div class="action">
-                            <button class="highlighted-btn">
+                            <button class="highlighted-btn" id="view-product">
                                 Lihat Produk Handphone
                             </button>
-                            <button class="bone-btn">
+                            <button class="bone-btn" id="view-accessories">
                                 Rekomendasi Aksesori
                             </button>
                         </div>
@@ -103,7 +103,7 @@
                 <div class="brands-container" id="brand-container"></div>
             </section>
 
-            <section class="hero">
+            <section class="hero" id="hero">
                 <div class="scattered">
                     <span class="scattered-decor MEGA-SALE"
                         >MEGA SALE 11.11</span
@@ -130,12 +130,23 @@
                     />
                     <button type="button" id="clear-search" class="clear-search">Hapus</button>
                 </div>
-                <div class="category-filter" id="filter-search">
-                    <button type="button" class="category-btn active" data-category="semua">Semua</button>
-                    <button type="button" class="category-btn" data-category="Android">Android</button>
-                    <button type="button" class="category-btn" data-category="Apple">Apple</button>
-                    <button type="button" class="category-btn" data-category="Power Accessories">Power Accessories</button>
-                    <button type="button" class="category-btn" data-category="Audio Gadget">Audio Gadget</button>
+                <div class="filters">
+                    <div class="sort-control">
+                        <label for="sort-price">Urutkan harga</label>
+                        <select id="sort-price">
+                            <option value="default">Urutan awal</option>
+                            <option value="asc">Termurah</option>
+                            <option value="desc">Termahal</option>
+                        </select>
+                    </div>
+                    <div class="category-filter" id="filter-search">
+                        <button type="button" class="category-btn active" data-category="semua">Semua</button>
+                        <button type="button" class="category-btn" data-category="Android">Android</button>
+                        <button type="button" class="category-btn" data-category="Apple">Apple</button>
+                        <button type="button" class="category-btn" data-category="Power Accessories">Powerbank</button>
+                        <button type="button" class="category-btn" data-category="Audio Gadget">Audio Gadget</button>
+                        <button type="button" class="category-btn" data-category="External Hardware">External Hardware</button>
+                    </div>
                 </div>
                 <p id="search-result" class="search-result" aria-live="polite">
                     Menampilkan semua produk
@@ -145,6 +156,10 @@
             <section class="grid-catalogs" id="catalog"></section>
 
             </div>
+
+            <button type="button" class="load-more-btn" id="load-more-btn">
+                <i class="fa-solid fa-angles-down"></i> Lihat Lebih Banyak
+            </button>
 
             <div class="spec-modal" id="spec-modal">
                 <div class="spec-modal-backdrop" data-close-modal></div>
@@ -207,7 +222,7 @@
             <div class="cart-list-information">
                 <div class="cart-total hidden" id="cart-total">
                     <p class="total-label">Total:</p>
-                    <p class="total-price" id="cart-total-price">Rp 0</p>
+                    <p class="total-price" id="cart-total-price">Rp.0,00</p>
                 </div>
 
                 <button type="button" class="highlighted-btn" id="checkout-btn">
@@ -242,7 +257,7 @@
 
             <div class="discount-reminder-box">
                 <p class="discount-reminder">
-                    Promo Berlaku hingga desember 2026
+                    Promo Berlaku hingga Desember 2026
                 </p>
             </div>
         </footer>
