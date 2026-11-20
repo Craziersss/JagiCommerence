@@ -3,13 +3,13 @@
 import { catalogData } from "./data-catalog.js";
 
 const brandLogo = [
-    { nama: "Apple iBox", icon: "fa-apple" },
-    { nama: "Samsung TAM", icon: "fa-android" },
-    { nama: "Xiaomi", icon: "fa-mobile-screen-button" },
-    { nama: "Google", icon: "fa-google" },
-    { nama: "Oppo TAM", icon: "fa-mobile-screen-button" },
-    { nama: "Sony Audio", icon: "fa-headphones" },
-    { nama: "OnePlus", icon: "fa-mobile-screen-button" },
+  { nama: "Apple iBox", icon: "fa-apple" },
+  { nama: "Samsung TAM", icon: "fa-android" },
+  { nama: "Xiaomi", icon: "fa-mobile-screen-button" },
+  { nama: "Google", icon: "fa-google" },
+  { nama: "Oppo TAM", icon: "fa-mobile-screen-button" },
+  { nama: "Sony Audio", icon: "fa-headphones" },
+  { nama: "OnePlus", icon: "fa-mobile-screen-button" },
 ];
 
 let listKeranjang = [];
@@ -49,36 +49,36 @@ let activeCategory = "semua";
 let cartCount = 0;
 
 function renderBrands() {
-    brandContainer.replaceChildren();
-    brandLogo.forEach((brand) => {
-        const article = document.createElement("article");
-        article.className = "brand-partner";
+  brandContainer.replaceChildren();
+  brandLogo.forEach((brand) => {
+    const article = document.createElement("article");
+    article.className = "brand-partner";
 
-        const icon = document.createElement("i");
-        icon.className = `fa-brands ${brand.icon}`;
+    const icon = document.createElement("i");
+    icon.className = `fa-brands ${brand.icon}`;
 
-        const name = document.createElement("p");
-        name.className = "brand-name";
-        name.textContent = brand.nama;
+    const name = document.createElement("p");
+    name.className = "brand-name";
+    name.textContent = brand.nama;
 
-        article.append(icon, name);
-        brandContainer.append(article);
-    });
+    article.append(icon, name);
+    brandContainer.append(article);
+  });
 }
 
 function createTags(datas) {
-    const fragment = document.createDocumentFragment();
+  const fragment = document.createDocumentFragment();
 
-    datas.forEach((text) => {
-        const tag = document.createElement("li");
+  datas.forEach((text) => {
+    const tag = document.createElement("li");
 
-        tag.className = "tag";
-        tag.textContent = text;
+    tag.className = "tag";
+    tag.textContent = text;
 
-        fragment.append(tag);
-    });
+    fragment.append(tag);
+  });
 
-    return fragment;
+  return fragment;
 }
 
 function renderCatalog(products, fromSearch = false) {
@@ -173,104 +173,104 @@ function renderCatalog(products, fromSearch = false) {
 }
 
 function renderCartItems() {
-    cartItemsContainer.replaceChildren();
+  cartItemsContainer.replaceChildren();
 
-    const fragment = document.createDocumentFragment();
-    let totalPrice = 0;
+  const fragment = document.createDocumentFragment();
+  let totalPrice = 0;
 
-    listKeranjang.forEach((item) => {
-        const cartItem = document.createElement("article");
-        cartItem.classList.add("cart-item");
+  listKeranjang.forEach((item) => {
+    const cartItem = document.createElement("article");
+    cartItem.classList.add("cart-item");
 
-        const itemInfo = document.createElement("div");
-        itemInfo.classList.add("cart-item-info");
+    const itemInfo = document.createElement("div");
+    itemInfo.classList.add("cart-item-info");
 
-        const itemImage = document.createElement("img");
-        itemImage.classList.add("cart-item-image");
-        itemImage.src = catalogData.find(
-            (product) => product.id === item.id,
-        ).imageLink;
-        itemImage.alt = item.name;
+    const itemImage = document.createElement("img");
+    itemImage.classList.add("cart-item-image");
+    itemImage.src = catalogData.find(
+      (product) => product.id === item.id,
+    ).imageLink;
+    itemImage.alt = item.name;
 
-        const itemDetails = document.createElement("div");
-        itemDetails.classList.add("cart-item-details");
+    const itemDetails = document.createElement("div");
+    itemDetails.classList.add("cart-item-details");
 
-        const itemName = document.createElement("h3");
-        itemName.classList.add("cart-item-name");
-        itemName.textContent = item.name;
+    const itemName = document.createElement("h3");
+    itemName.classList.add("cart-item-name");
+    itemName.textContent = item.name;
 
-        const itemQuantity = document.createElement("p");
-        itemQuantity.classList.add("cart-item-quantity");
-        itemQuantity.textContent = `Jumlah: ${item.quantity}`;
+    const itemQuantity = document.createElement("p");
+    itemQuantity.classList.add("cart-item-quantity");
+    itemQuantity.textContent = `Jumlah: ${item.quantity}`;
 
         const itemPrice = document.createElement("p");
         itemPrice.classList.add("cart-item-price");
         itemPrice.textContent = `Harga: Rp.${item.price.toLocaleString("id-ID")},00 per unit`;
 
-        totalPrice += item.quantity * item.price;
+    totalPrice += item.quantity * item.price;
 
-        const removeButton = document.createElement("button");
-        removeButton.classList.add("remove-item-btn");
-        removeButton.type = "button";
-        removeButton.textContent = "-";
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("remove-item-btn");
+    removeButton.type = "button";
+    removeButton.textContent = "-";
 
-        itemDetails.append(itemName, itemQuantity, itemPrice);
-        itemInfo.append(itemImage, itemDetails);
-        cartItem.append(itemInfo, removeButton);
+    itemDetails.append(itemName, itemQuantity, itemPrice);
+    itemInfo.append(itemImage, itemDetails);
+    cartItem.append(itemInfo, removeButton);
 
-        fragment.append(cartItem);
-    });
+    fragment.append(cartItem);
+  });
 
-    cartItemsContainer.append(fragment);
+  cartItemsContainer.append(fragment);
 
     cartTotalPrice.textContent = `Rp.${totalPrice.toLocaleString("id-ID")},00`;
 }
 
 function cartUpdate(product) {
-    const existingItem = listKeranjang.find((item) => item.id === product.id);
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        let item = {
-            id: product.id,
-            name: product.name,
-            priceString: product.priceString,
-            price: product.price,
-            quantity: 1,
-        };
-        listKeranjang.push(item);
-    }
+  const existingItem = listKeranjang.find((item) => item.id === product.id);
+  if (existingItem) {
+    existingItem.quantity++;
+  } else {
+    let item = {
+      id: product.id,
+      name: product.name,
+      priceString: product.priceString,
+      price: product.price,
+      quantity: 1,
+    };
+    listKeranjang.push(item);
+  }
 }
 
 function openSpecification(product) {
-    specTitle.textContent = `Spesifikasi ${product.name}`;
-    specDetail.replaceChildren();
+  specTitle.textContent = `Spesifikasi ${product.name}`;
+  specDetail.replaceChildren();
 
-    const table = document.createElement("dl");
-    table.className = "spec-list";
+  const table = document.createElement("dl");
+  table.className = "spec-list";
 
-    Object.entries(product.detail).forEach(([label, value]) => {
-        const row = document.createElement("div");
-        row.className = "spec-row";
+  Object.entries(product.detail).forEach(([label, value]) => {
+    const row = document.createElement("div");
+    row.className = "spec-row";
 
-        const term = document.createElement("dt");
-        term.textContent = label;
+    const term = document.createElement("dt");
+    term.textContent = label;
 
-        const description = document.createElement("dd");
-        description.textContent = value;
+    const description = document.createElement("dd");
+    description.textContent = value;
 
-        row.append(term, description);
-        table.append(row);
-    });
+    row.append(term, description);
+    table.append(row);
+  });
 
-    specDetail.append(table);
-    modal.classList.add("show");
-    document.body.classList.add("modal-open");
+  specDetail.append(table);
+  modal.classList.add("show");
+  document.body.classList.add("modal-open");
 }
 
 function closeSpecification() {
-    modal.classList.remove("show");
-    document.body.classList.remove("modal-open");
+  modal.classList.remove("show");
+  document.body.classList.remove("modal-open");
 }
 
 function filterProducts() {
@@ -327,17 +327,17 @@ viewAccessoriesBtn.addEventListener("click", () => {
 
 // Pendengar Search Bar & Category
 categoryParent.addEventListener("click", (event) => {
-    const isCategoryButton = event.target.closest(".category-btn");
-    if (!isCategoryButton) return;
+  const isCategoryButton = event.target.closest(".category-btn");
+  if (!isCategoryButton) return;
 
-    activeCategory = isCategoryButton.dataset.category;
+  activeCategory = isCategoryButton.dataset.category;
 
-    categoryButtons.forEach((categoryButton) => {
-        const isActive = categoryButton === isCategoryButton;
-        categoryButton.classList.toggle("active", isActive);
-    });
+  categoryButtons.forEach((categoryButton) => {
+    const isActive = categoryButton === isCategoryButton;
+    categoryButton.classList.toggle("active", isActive);
+  });
 
-    filterProducts();
+  filterProducts();
 });
 
 searchInput.addEventListener("input", filterProducts);
@@ -346,96 +346,79 @@ sortPriceSelect.addEventListener("change", () => {
     filterProducts();
 });
 clearSearchButton.addEventListener("click", () => {
-    searchInput.value = "";
-    filterProducts();
-    searchInput.focus();
+  searchInput.value = "";
+  filterProducts();
+  searchInput.focus();
 });
 
 // Pendengar tombol Buy & Spec
 catalogContainer.addEventListener("click", (event) => {
-    const isBuyBtn = event.target.closest(".highlighted-btn");
-    const isSpecBtn = event.target.closest(".bone-btn");
+  const isBuyBtn = event.target.closest(".highlighted-btn");
+  const isSpecBtn = event.target.closest(".bone-btn");
 
-    if (!isBuyBtn && !isSpecBtn) return;
+  if (!isBuyBtn && !isSpecBtn) return;
 
-    const articleID = Number(event.target.closest(".catalog-card").id);
-    const articleParent = catalogData.find(
-        (product) => product.id === articleID,
-    );
+  const articleID = Number(event.target.closest(".catalog-card").id);
+  const articleParent = catalogData.find((product) => product.id === articleID);
 
-    if (isBuyBtn) {
-        cartCount++;
-        cartBtn.textContent = `keranjang (${cartCount})`;
+  if (isBuyBtn) {
+    cartCount++;
+    cartBtn.textContent = `keranjang (${cartCount})`;
 
-        alert(`Produk "${articleParent.name}" telah ditambahkan ke keranjang.`);
+    alert(`Produk "${articleParent.name}" telah ditambahkan ke keranjang.`);
 
-        cartUpdate(articleParent);
-    } else if (isSpecBtn) {
-        openSpecification(articleParent);
-    }
+    cartUpdate(articleParent);
+  } else if (isSpecBtn) {
+    openSpecification(articleParent);
+  }
 });
 
 //pendengar tombol cart
 cartBtn.addEventListener("click", () => {
-    cartOverlay.classList.remove("hidden");
-    cartContainer.classList.remove("hidden");
-    cartItemsContainer.replaceChildren();
+  cartOverlay.classList.remove("hidden");
+  cartContainer.classList.remove("hidden");
+  cartItemsContainer.replaceChildren();
 
-    if (listKeranjang.length === 0) {
-        const empty = document.createElement("p");
-        empty.classList.add("empty-result");
-        empty.textContent = "Keranjang belanja kosong.";
-        cartItemsContainer.append(empty);
-        cartTotalContainer.classList.add("hidden");
-        return;
-    }
+  if (listKeranjang.length === 0) {
+    const empty = document.createElement("p");
+    empty.classList.add("empty-result");
+    empty.textContent = "Keranjang belanja kosong.";
+    cartItemsContainer.append(empty);
+    cartTotalContainer.classList.add("hidden");
+    return;
+  }
 
-    renderCartItems();
+  renderCartItems();
 });
 
 cartCloseBtn.addEventListener("click", () => {
-    cartOverlay.classList.add("hidden");
-    cartContainer.classList.add("hidden");
+  cartOverlay.classList.add("hidden");
+  cartContainer.classList.add("hidden");
 });
 
 cartItemsContainer.addEventListener("click", (event) => {
-    const isRemoveBtn = event.target.closest(".remove-item-btn");
-    if (!isRemoveBtn) return;
+  const isRemoveBtn = event.target.closest(".remove-item-btn");
+  if (!isRemoveBtn) return;
 
-    const cartItem = event.target.closest(".cart-item");
-    const itemName = cartItem.querySelector(".cart-item-name").textContent;
-    const itemToRemove = listKeranjang.find((item) => item.name === itemName);
+  const cartItem = event.target.closest(".cart-item");
+  const itemName = cartItem.querySelector(".cart-item-name").textContent;
+  const itemToRemove = listKeranjang.find((item) => item.name === itemName);
 
-    if (itemToRemove) {
-        if (itemToRemove.quantity > 1) {
-            itemToRemove.quantity--;
-        } else {
-            listKeranjang = listKeranjang.filter(
-                (item) => item !== itemToRemove,
-            );
-        }
+  if (itemToRemove) {
+    if (itemToRemove.quantity > 1) {
+      itemToRemove.quantity--;
+    } else {
+      listKeranjang = listKeranjang.filter((item) => item !== itemToRemove);
     }
+  }
 
-    renderCartItems();
+  renderCartItems();
 });
 
 checkoutBtn.addEventListener("click", () => {
-    if (listKeranjang.length === 0) {
-        alert(
-            "Keranjang belanja kosong. Silakan tambahkan produk terlebih dahulu.",
-        );
-        return;
-    }
-
-    const totalPrice = listKeranjang.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0,
-    );
-
-    const confirmation = confirm(
-        `Total belanja Anda adalah Rp ${totalPrice.toLocaleString(
-            "id-ID",
-        )}. Apakah Anda ingin melanjutkan ke pembayaran?`,
+  if (listKeranjang.length === 0) {
+    alert(
+      "Keranjang belanja kosong. Silakan tambahkan produk terlebih dahulu.",
     );
 
     if (confirmation) {
@@ -470,15 +453,265 @@ topBtn.addEventListener("click", () => {
 });
 
 document
-    .getElementById("close-modal")
-    .addEventListener("click", closeSpecification);
+  .getElementById("close-modal")
+  .addEventListener("click", closeSpecification);
 
 modal.addEventListener("click", (event) => {
-    if (event.target.hasAttribute("data-close-modal")) closeSpecification();
+  if (event.target.hasAttribute("data-close-modal")) closeSpecification();
 });
 document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeSpecification();
+  if (event.key === "Escape") closeSpecification();
 });
 
 renderBrands();
 renderCatalog(catalogData);
+
+const darkModeStyle = document.createElement("style");
+
+darkModeStyle.textContent = `
+    body.dark-mode {
+        background: #121212;
+        color: #f5f5f5;
+    }
+
+    body.dark-mode header,
+    body.dark-mode footer,
+    body.dark-mode .catalog-card,
+    body.dark-mode .katalog,
+    body.dark-mode .brand-partner,
+    body.dark-mode .search-wrap,
+    body.dark-mode .category-btn,
+    body.dark-mode .spec-modal-content,
+    body.dark-mode .cart-container {
+        background: #1e1e1e;
+        color: #f5f5f5;
+        border-color: #383838;
+    }
+
+    body.dark-mode .hero-desc,
+    body.dark-mode .desc,
+    body.dark-mode .small-text,
+    body.dark-mode .header-desc,
+    body.dark-mode .link,
+    body.dark-mode .search-result {
+        color: #bdbdbd;
+    }
+
+    body.dark-mode .short-info-boxs,
+    body.dark-mode .cart-items,
+    body.dark-mode .cart-item,
+    body.dark-mode .empty-result {
+        background: #292929;
+        color: #f5f5f5;
+        border-color: #444;
+    }
+
+    body.dark-mode .cart-item {
+        background: #333;
+    }
+
+    body.dark-mode .bone-btn,
+    body.dark-mode .clear-search {
+        background: #333;
+        color: white;
+        border-color: #555;
+    }
+
+    body.dark-mode .tag {
+        background: #303b49;
+        color: #d4e6ff;
+    }
+
+    body.dark-mode .category-btn.active {
+        background: #5194cb;
+        color: white;
+    }
+
+    body.dark-mode input {
+        color: white;
+    }
+
+    body.dark-mode .spec-row dt {
+        color: white;
+    }
+
+    body.dark-mode .spec-row dd {
+        color: #bbb;
+    }
+
+    body.dark-mode .about-section {
+        background: #1e1e1e;
+        color: white;
+    }
+
+    body.dark-mode .about-card {
+        background: #292929;
+        border-color: #444;
+    }
+
+    .about-section {
+        margin: 40px 0;
+        padding: 30px;
+        background: white;
+        border-radius: 16px;
+        color: #222;
+    }
+
+    .about-section h2 {
+        margin-bottom: 15px;
+    }
+
+    .about-section p {
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+
+    .about-values {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .about-card {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #f8f8f8;
+    }
+
+    .about-card h3 {
+        margin-bottom: 10px;
+        color: #5194cb;
+    }
+`;
+
+document.head.append(darkModeStyle);
+
+const themeButton = document.createElement("button");
+
+themeButton.type = "button";
+themeButton.id = "theme-toggle";
+themeButton.className = "theme-btn round-btn";
+themeButton.setAttribute("aria-label", "Ganti Tema");
+themeButton.title = "Ganti Tema";
+
+const floatingBtns = document.querySelector(".floating-btns");
+const topBtn = document.querySelector(".top-btn");
+
+floatingBtns.insertBefore(themeButton, topBtn);
+
+let currentTheme = localStorage.getItem("gadgetverse-theme") || "light";
+
+function updateTheme() {
+  const isDark = currentTheme === "dark";
+
+  document.body.classList.toggle("dark-mode", isDark);
+
+  themeButton.innerHTML = isDark
+    ? '<i class="fa-solid fa-sun"></i>'
+    : '<i class="fa-solid fa-moon"></i>';
+}
+
+updateTheme();
+
+themeButton.addEventListener("click", () => {
+  currentTheme = currentTheme === "dark" ? "light" : "dark";
+
+  localStorage.setItem("gadgetverse-theme", currentTheme);
+
+  updateTheme();
+});
+
+const aboutSection = document.createElement("section");
+
+aboutSection.id = "tentang-kami";
+aboutSection.className = "about-section";
+
+const aboutTitle = document.createElement("h2");
+aboutTitle.textContent = "Tentang GadgetVerse";
+
+const aboutHistory = document.createElement("p");
+
+aboutHistory.textContent =
+  "GadgetVerse merupakan perusahaan teknologi yang " +
+  "didirikan pada tahun 2000 dengan tujuan memberikan " +
+  "kemudahan bagi masyarakat dalam memperoleh perangkat " +
+  "teknologi berkualitas. Berawal dari sebuah toko kecil " +
+  "yang menyediakan handphone dan aksesori, GadgetVerse " +
+  "terus berkembang mengikuti kemajuan teknologi hingga " +
+  "menjadi platform katalog gadget modern.";
+
+const aboutVisionTitle = document.createElement("h2");
+aboutVisionTitle.textContent = "Visi dan Misi";
+
+const aboutVision = document.createElement("p");
+
+aboutVision.textContent =
+  "Visi kami adalah menjadi platform penyedia informasi " +
+  "dan kebutuhan gadget terpercaya. Misi kami adalah " +
+  "menyediakan produk berkualitas, memberikan pelayanan " +
+  "terbaik, menghadirkan informasi produk yang transparan, " +
+  "serta mengikuti perkembangan teknologi.";
+
+const valuesContainer = document.createElement("div");
+valuesContainer.className = "about-values";
+
+const values = [
+  {
+    title: "Kualitas",
+    description: "Mengutamakan kualitas produk dan kepuasan pelanggan.",
+  },
+  {
+    title: "Kepercayaan",
+    description: "Memberikan informasi produk yang jelas dan transparan.",
+  },
+  {
+    title: "Inovasi",
+    description: "Terus mengikuti perkembangan teknologi terbaru.",
+  },
+];
+
+values.forEach((value) => {
+  const card = document.createElement("article");
+  card.className = "about-card";
+
+  const title = document.createElement("h3");
+  title.textContent = value.title;
+
+  const description = document.createElement("p");
+  description.textContent = value.description;
+
+  card.append(title, description);
+  valuesContainer.append(card);
+});
+
+aboutSection.append(
+  aboutTitle,
+  aboutHistory,
+  aboutVisionTitle,
+  aboutVision,
+  valuesContainer,
+);
+
+const mainElement = document.querySelector("main");
+const modalElement = document.getElementById("spec-modal");
+
+mainElement.insertBefore(aboutSection, modalElement);
+
+const navigationLinks = document.querySelectorAll(".links .link");
+
+navigationLinks.forEach((link) => {
+  if (link.textContent.trim().toLowerCase() === "tentang kami") {
+    link.href = "#tentang-kami";
+  }
+
+  if (link.textContent.trim().toLowerCase() === "katalog hp") {
+    link.href = "#TOP";
+  }
+});
+
+filterProducts();
+
+console.log("GadgetVerse berhasil diperbarui!");
+console.log("Total produk:", catalogData.length);
