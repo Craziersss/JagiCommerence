@@ -131,14 +131,6 @@
                     <button type="button" id="clear-search" class="clear-search">Hapus</button>
                 </div>
                 <div class="filters">
-                    <div class="sort-control">
-                        <label for="sort-price">Urutkan harga</label>
-                        <select id="sort-price">
-                            <option value="default">Urutan awal</option>
-                            <option value="asc">Termurah</option>
-                            <option value="desc">Termahal</option>
-                        </select>
-                    </div>
                     <div class="category-filter" id="filter-search">
                         <button type="button" class="category-btn active" data-category="semua">Semua</button>
                         <button type="button" class="category-btn" data-category="Android">Android</button>
@@ -146,6 +138,14 @@
                         <button type="button" class="category-btn" data-category="Power Accessories">Powerbank</button>
                         <button type="button" class="category-btn" data-category="Audio Gadget">Audio Gadget</button>
                         <button type="button" class="category-btn" data-category="External Hardware">External Hardware</button>
+                    </div>
+                    <div class="sort-control">
+                        <label for="sort-price">Urutkan harga</label>
+                        <select id="sort-price">
+                            <option value="default">Urutan awal</option>
+                            <option value="asc">Termurah</option>
+                            <option value="desc">Termahal</option>
+                        </select>
                     </div>
                 </div>
                 <p id="search-result" class="search-result" aria-live="polite">
@@ -188,7 +188,7 @@
                 </button>
             </div>
 
-            <button class="top-btn round-btn">
+            <button class="top-btn round-btn" id="top-btn">
                 <i class="fa-solid fa-angles-up"></i>
             </button>
         </aside>

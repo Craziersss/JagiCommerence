@@ -768,6 +768,9 @@ footer .tags .tag {
 }
 .filters {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 .sort-control {
@@ -791,7 +794,7 @@ footer .tags .tag {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    max-width: 680px;
+    max-width: 100%;
     background: var(--white);
     border: 1px solid var(--gray-2);
     border-radius: 12px;

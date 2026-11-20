@@ -43,6 +43,8 @@ const modal = document.getElementById("spec-modal");
 const specDetail = document.getElementById("spec-detail");
 const specTitle = document.getElementById("spec-title");
 
+const topBtn = document.getElementById("top-btn");
+
 let activeCategory = "semua";
 let cartCount = 0;
 
@@ -461,6 +463,10 @@ loadMoreBtn.addEventListener("click", () => {
     }
 
     filterProducts();
+});
+
+topBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 document
