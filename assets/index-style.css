@@ -91,6 +91,7 @@ header {
   border-radius: 1rem;
   font-weight: 600;
   padding: 8px 16px;
+  cursor: pointer;
 }
 
 /*---------------------------------MAIN---------------------------------*/
@@ -399,6 +400,23 @@ main {
   border: 1px solid var(--gray-1);
   cursor: pointer;
 }
+
+.load-more-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    margin: 1rem auto 0;
+    font-size: var(--normal-text);
+    font-weight: 600;
+    cursor: pointer;
+}
+
 /*---------------------------------ASIDE---------------------------------*/
 aside {
   position: fixed;
@@ -428,7 +446,8 @@ aside {
 }
 
 .sosmed-btn {
-  background-color: var(--white);
+    background-color: var(--white);
+    cursor: pointer;
 }
 
 .round-btn:hover {
@@ -776,16 +795,40 @@ footer .tags .tag {
 .catalog-tools {
   margin: 1.5rem 0 1rem;
 }
+.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.sort-control {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+    color: var(--gray-1);
+    font-size: var(--normal-text);
+}
+.sort-control select {
+    border: 1px solid var(--gray-2);
+    border-radius: 8px;
+    background: var(--white);
+    padding: 0.6rem 0.8rem;
+    color: var(--black);
+    font-size: var(--normal-text);
+}
 .search-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  max-width: 620px;
-  background: var(--white);
-  border: 1px solid var(--gray-2);
-  border-radius: 12px;
-  padding: 0.35rem 0.7rem 0.35rem 1rem;
-  box-shadow: 0 3px 12px #0000000a;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 100%;
+    background: var(--white);
+    border: 1px solid var(--gray-2);
+    border-radius: 12px;
+    padding: 0.35rem 0.7rem 0.35rem 1rem;
+    box-shadow: 0 3px 12px #0000000a;
 }
 .search-wrap i {
   color: var(--gray-1);

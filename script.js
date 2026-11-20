@@ -13,14 +13,21 @@ const brandLogo = [
 ];
 
 let listKeranjang = [];
+let cardShownLimit = 8;
 
+const viewProductBtn = document.getElementById("view-product");
+const viewAccessoriesBtn = document.getElementById("view-accessories");
+
+const hero = document.getElementById("hero");
 const brandContainer = document.getElementById("brand-container");
 const catalogContainer = document.getElementById("catalog");
 const searchInput = document.getElementById("search-product");
 const clearSearchButton = document.getElementById("clear-search");
 const searchResult = document.getElementById("search-result");
+const sortPriceSelect = document.getElementById("sort-price");
 const categoryButtons = document.querySelectorAll(".category-btn");
 const categoryParent = document.getElementById("filter-search");
+const loadMoreBtn = document.getElementById("load-more-btn");
 
 // variabel untuk semua yang ada di cart
 const cartBtn = document.getElementById("cart-button");
@@ -35,6 +42,8 @@ const checkoutBtn = document.getElementById("checkout-btn");
 const modal = document.getElementById("spec-modal");
 const specDetail = document.getElementById("spec-detail");
 const specTitle = document.getElementById("spec-title");
+
+const topBtn = document.getElementById("top-btn");
 
 let activeCategory = "semua";
 let cartCount = 0;
@@ -72,93 +81,95 @@ function createTags(datas) {
   return fragment;
 }
 
-function renderCatalog(products) {
-  catalogContainer.replaceChildren();
+function renderCatalog(products, fromSearch = false) {
+    catalogContainer.replaceChildren();
 
-  if (products.length === 0) {
-    const empty = document.createElement("p");
-    empty.classList.add("empty-result");
-    empty.textContent =
-      "Produk tidak ditemukan. Coba kata kunci lain, misalnya iPhone atau Samsung.";
-    catalogContainer.append(empty);
-    return;
-  }
+    if (products.length === 0) {
+        const empty = document.createElement("p");
+        empty.classList.add("empty-result");
+        empty.textContent =
+            "Produk tidak ditemukan. Coba kata kunci lain, misalnya iPhone atau Samsung.";
+        catalogContainer.append(empty);
+        return;
+    }
 
-  products.forEach((product) => {
-    const card = document.createElement("article");
-    card.classList.add("catalog-card");
-    card.setAttribute("id", product.id);
+    products.forEach((product, i) => {
+        if (i >= cardShownLimit && !fromSearch) return;
 
-    // Attribute Container
-    const attribute = document.createElement("div");
-    const highlight = document.createElement("span");
-    const type = document.createElement("p");
+        const card = document.createElement("article");
+        card.classList.add("catalog-card");
+        card.setAttribute("id", product.id);
 
-    attribute.classList.add("card-attribute");
-    highlight.classList.add("short-info");
-    type.classList.add("small-text");
+        // Attribute Container
+        const attribute = document.createElement("div");
+        const highlight = document.createElement("span");
+        const type = document.createElement("p");
 
-    highlight.textContent = product.highlight;
-    type.textContent = product.type;
+        attribute.classList.add("card-attribute");
+        highlight.classList.add("short-info");
+        type.classList.add("small-text");
 
-    attribute.append(highlight, type);
+        highlight.textContent = product.highlight;
+        type.textContent = product.type;
 
-    // Image Container
-    const imageContainer = document.createElement("div");
-    const discount = document.createElement("span");
-    const image = document.createElement("img");
+        attribute.append(highlight, type);
 
-    imageContainer.classList.add("img-container");
-    discount.classList.add("discount");
+        // Image Container
+        const imageContainer = document.createElement("div");
+        const discount = document.createElement("span");
+        const image = document.createElement("img");
 
-    discount.textContent = `-${product.discount}%`;
+        imageContainer.classList.add("img-container");
+        discount.classList.add("discount");
 
-    image.src = product.imageLink;
-    image.alt = product.name;
-    image.loading = "lazy";
+        discount.textContent = `-${product.discount}%`;
 
-    imageContainer.append(discount, image);
+        image.src = product.imageLink;
+        image.alt = product.name;
+        image.loading = "lazy";
 
-    // Information Container
-    const info = document.createElement("div");
-    const price = document.createElement("p");
-    const name = document.createElement("h2");
-    const description = document.createElement("p");
-    const tags = document.createElement("ul");
+        imageContainer.append(discount, image);
 
-    info.classList.add("card-info");
-    price.classList.add("price");
-    name.classList.add("card-name");
-    description.classList.add("desc");
-    tags.classList.add("tags");
+        // Information Container
+        const info = document.createElement("div");
+        const price = document.createElement("p");
+        const name = document.createElement("h2");
+        const description = document.createElement("p");
+        const tags = document.createElement("ul");
 
-    price.textContent = `Rp ${product.price.toLocaleString("id-ID")}`;
-    name.textContent = product.name;
-    description.textContent = product.description;
-    tags.append(createTags(product.spesification));
+        info.classList.add("card-info");
+        price.classList.add("price");
+        name.classList.add("card-name");
+        description.classList.add("desc");
+        tags.classList.add("tags");
 
-    info.append(price, name, description, tags);
+        price.textContent = `Rp.${product.price.toLocaleString("id-ID")},00`;
+        name.textContent = product.name;
+        description.textContent = product.description;
+        tags.append(createTags(product.spesification));
 
-    // Actions Container
-    const actions = document.createElement("div");
-    const buyButton = document.createElement("button");
-    const specButton = document.createElement("button");
+        info.append(price, name, description, tags);
 
-    actions.classList.add("action");
-    buyButton.classList.add("highlighted-btn");
-    specButton.classList.add("bone-btn");
+        // Actions Container
+        const actions = document.createElement("div");
+        const buyButton = document.createElement("button");
+        const specButton = document.createElement("button");
 
-    buyButton.type = "button";
-    buyButton.textContent = "Beli Sekarang";
+        actions.classList.add("action");
+        buyButton.classList.add("highlighted-btn");
+        specButton.classList.add("bone-btn");
 
-    specButton.type = "button";
-    specButton.textContent = "Spesifikasi";
+        buyButton.type = "button";
+        buyButton.textContent = "Masukan Keranjang";
 
-    // Appending ke container-container nya
-    actions.append(buyButton, specButton);
-    card.append(attribute, imageContainer, info, actions);
-    catalogContainer.append(card);
-  });
+        specButton.type = "button";
+        specButton.textContent = "Spesifikasi";
+
+        // Appending ke container-container nya
+        actions.append(buyButton, specButton);
+        card.append(attribute, imageContainer, info, actions);
+        catalogContainer.append(card);
+    });
 }
 
 function renderCartItems() {
@@ -192,9 +203,9 @@ function renderCartItems() {
     itemQuantity.classList.add("cart-item-quantity");
     itemQuantity.textContent = `Jumlah: ${item.quantity}`;
 
-    const itemPrice = document.createElement("p");
-    itemPrice.classList.add("cart-item-price");
-    itemPrice.textContent = `Harga: ${item.priceString} per unit`;
+        const itemPrice = document.createElement("p");
+        itemPrice.classList.add("cart-item-price");
+        itemPrice.textContent = `Harga: Rp.${item.price.toLocaleString("id-ID")},00 per unit`;
 
     totalPrice += item.quantity * item.price;
 
@@ -212,7 +223,7 @@ function renderCartItems() {
 
   cartItemsContainer.append(fragment);
 
-  cartTotalPrice.textContent = `Rp ${totalPrice.toLocaleString("id-ID")}`;
+    cartTotalPrice.textContent = `Rp.${totalPrice.toLocaleString("id-ID")},00`;
 }
 
 function cartUpdate(product) {
@@ -263,34 +274,56 @@ function closeSpecification() {
 }
 
 function filterProducts() {
-  const keyword = searchInput.value.trim().toLowerCase();
+    const keyword = searchInput.value.trim().toLowerCase();
 
-  const filtered = catalogData.filter((product) => {
-    const matchesCategory =
-      activeCategory === "semua" || product.type === activeCategory;
+    const filtered = catalogData.filter((product) => {
+        const matchesCategory =
+            activeCategory === "semua" || product.type === activeCategory;
 
-    const searchableText = [
-      product.name,
-      product.brand,
-      product.type,
-      product.description,
-      ...product.spesification,
-      ...Object.values(product.detail),
-    ]
-      .join(" ")
-      .toLowerCase();
+        const searchableText = [
+            product.name,
+            product.brand,
+            product.type,
+            product.description,
+            ...product.spesification,
+            ...Object.values(product.detail),
+        ]
+            .join(" ")
+            .toLowerCase();
 
-    const matchesKeyword = searchableText.includes(keyword);
-    return matchesCategory && matchesKeyword;
-  });
+        const matchesKeyword = searchableText.includes(keyword);
+        return matchesCategory && matchesKeyword;
+    });
 
-  renderCatalog(filtered);
+    if (sortPriceSelect.value !== "default") {
+        const sortDirection = sortPriceSelect.value === "asc" ? 1 : -1;
+        filtered.sort(
+            (first, second) => (first.price - second.price) * sortDirection,
+        );
+    }
 
-  const hasFilter = activeCategory !== "semua" || keyword !== "";
-  searchResult.textContent = hasFilter
-    ? `Menampilkan ${filtered.length} dari ${catalogData.length} produk`
-    : `Menampilkan semua produk`;
+    const hasFilter = activeCategory !== "semua" || keyword !== "";
+    renderCatalog(filtered, hasFilter);
+    loadMoreBtn.style.display =
+        hasFilter || filtered.length <= cardShownLimit ? "none" : "flex";
+
+    searchResult.textContent = hasFilter
+        ? `Menampilkan ${filtered.length} dari ${catalogData.length} produk`
+        : `Menampilkan semua produk`;
 }
+
+// view product and accessories button event listeners
+viewProductBtn.addEventListener("click", () => {
+    hero.scrollIntoView({ behavior: "smooth" });
+});
+
+viewAccessoriesBtn.addEventListener("click", () => {
+    hero.scrollIntoView({ behavior: "smooth" });
+
+    activeCategory = "Gadget Accessories";
+
+    filterProducts();
+});
 
 // Pendengar Search Bar & Category
 categoryParent.addEventListener("click", (event) => {
@@ -308,6 +341,10 @@ categoryParent.addEventListener("click", (event) => {
 });
 
 searchInput.addEventListener("input", filterProducts);
+sortPriceSelect.addEventListener("change", () => {
+    cardShownLimit = 8;
+    filterProducts();
+});
 clearSearchButton.addEventListener("click", () => {
   searchInput.value = "";
   filterProducts();
@@ -383,28 +420,36 @@ checkoutBtn.addEventListener("click", () => {
     alert(
       "Keranjang belanja kosong. Silakan tambahkan produk terlebih dahulu.",
     );
-    return;
-  }
 
-  const totalPrice = listKeranjang.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0,
-  );
+    if (confirmation) {
+        alert(
+            "Terima kasih telah berbelanja! Pesanan Anda akan segera diproses.",
+        );
+        listKeranjang = [];
+        cartCount = 0;
+        cartBtn.textContent = "keranjang (0)";
+        cartTotalPrice.textContent = "Rp.0,00";
+        cartOverlay.classList.add("hidden");
+        cartContainer.classList.add("hidden");
 
-  const confirmation = confirm(
-    `Total belanja Anda adalah Rp ${totalPrice.toLocaleString(
-      "id-ID",
-    )}. Apakah Anda ingin melanjutkan ke pembayaran?`,
-  );
+        renderCartItems();
+    }
+});
 
-  if (confirmation) {
-    alert("Terima kasih telah berbelanja! Pesanan Anda akan segera diproses.");
-    listKeranjang = [];
-    cartCount = 0;
-    cartBtn.textContent = "keranjang (0)";
-    cartOverlay.classList.add("hidden");
-    cartContainer.classList.add("hidden");
-  }
+//Menaikan limit kartu katalog
+loadMoreBtn.addEventListener("click", () => {
+    cardShownLimit += 6;
+
+    if (cardShownLimit >= catalogData.length) {
+        cardShownLimit = catalogData.length;
+        loadMoreBtn.style.display = "none";
+    }
+
+    filterProducts();
+});
+
+topBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 document
