@@ -12,9 +12,6 @@ const brandLogo = [
   { nama: "OnePlus", icon: "fa-mobile-screen-button" },
 ];
 
-let listKeranjang = [];
-let cardShownLimit = 8;
-
 const viewProductBtn = document.getElementById("view-product");
 const viewAccessoriesBtn = document.getElementById("view-accessories");
 
@@ -44,9 +41,15 @@ const specDetail = document.getElementById("spec-detail");
 const specTitle = document.getElementById("spec-title");
 
 const topBtn = document.getElementById("top-btn");
+const floatingBtns = document.querySelector(".floating-btns");
+const navigationLinks = document.querySelectorAll(".links .link");
+const themeButton = document.getElementById("theme-toggle");
 
 let activeCategory = "semua";
 let cartCount = 0;
+let currentTheme = "light";
+let listKeranjang = [];
+let cardShownLimit = 8;
 
 function renderBrands() {
   brandContainer.replaceChildren();
@@ -312,6 +315,12 @@ function filterProducts() {
         : `Menampilkan semua produk`;
 }
 
+function updateTheme() {
+  const isDark = currentTheme === "dark";
+
+  document.body.classList.toggle("dark-mode", isDark);
+}
+
 // view product and accessories button event listeners
 viewProductBtn.addEventListener("click", () => {
     hero.scrollIntoView({ behavior: "smooth" });
@@ -420,20 +429,26 @@ checkoutBtn.addEventListener("click", () => {
     alert(
       "Keranjang belanja kosong. Silakan tambahkan produk terlebih dahulu.",
     );
+    return;
+  }
 
-    if (confirmation) {
-        alert(
-            "Terima kasih telah berbelanja! Pesanan Anda akan segera diproses.",
-        );
-        listKeranjang = [];
-        cartCount = 0;
-        cartBtn.textContent = "keranjang (0)";
-        cartTotalPrice.textContent = "Rp.0,00";
-        cartOverlay.classList.add("hidden");
-        cartContainer.classList.add("hidden");
+  const confirmation = confirm(
+    `Apakah Anda yakin ingin melakukan checkout dengan biaya Rp.${cartTotalPrice.textContent},00? Pesanan akan diproses.`,
+  );
 
-        renderCartItems();
-    }
+  if (confirmation) {
+      alert(
+          "Terima kasih telah berbelanja! Pesanan Anda akan segera diproses.",
+      );
+      listKeranjang = [];
+      cartCount = 0;
+      cartBtn.textContent = "keranjang (0)";
+      cartTotalPrice.textContent = "Rp.0,00";
+      cartOverlay.classList.add("hidden");
+      cartContainer.classList.add("hidden");
+
+      renderCartItems();
+  }
 });
 
 //Menaikan limit kartu katalog
@@ -463,159 +478,18 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeSpecification();
 });
 
-renderBrands();
-renderCatalog(catalogData);
-
-const darkModeStyle = document.createElement("style");
-
-darkModeStyle.textContent = `
-    body.dark-mode {
-        background: #121212;
-        color: #f5f5f5;
+navigationLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    const targetId = link.getAttribute("href");
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
     }
+  });
+});
 
-    body.dark-mode header,
-    body.dark-mode footer,
-    body.dark-mode .catalog-card,
-    body.dark-mode .katalog,
-    body.dark-mode .brand-partner,
-    body.dark-mode .search-wrap,
-    body.dark-mode .category-btn,
-    body.dark-mode .spec-modal-content,
-    body.dark-mode .cart-container {
-        background: #1e1e1e;
-        color: #f5f5f5;
-        border-color: #383838;
-    }
-
-    body.dark-mode .hero-desc,
-    body.dark-mode .desc,
-    body.dark-mode .small-text,
-    body.dark-mode .header-desc,
-    body.dark-mode .link,
-    body.dark-mode .search-result {
-        color: #bdbdbd;
-    }
-
-    body.dark-mode .short-info-boxs,
-    body.dark-mode .cart-items,
-    body.dark-mode .cart-item,
-    body.dark-mode .empty-result {
-        background: #292929;
-        color: #f5f5f5;
-        border-color: #444;
-    }
-
-    body.dark-mode .cart-item {
-        background: #333;
-    }
-
-    body.dark-mode .bone-btn,
-    body.dark-mode .clear-search {
-        background: #333;
-        color: white;
-        border-color: #555;
-    }
-
-    body.dark-mode .tag {
-        background: #303b49;
-        color: #d4e6ff;
-    }
-
-    body.dark-mode .category-btn.active {
-        background: #5194cb;
-        color: white;
-    }
-
-    body.dark-mode input {
-        color: white;
-    }
-
-    body.dark-mode .spec-row dt {
-        color: white;
-    }
-
-    body.dark-mode .spec-row dd {
-        color: #bbb;
-    }
-
-    body.dark-mode .about-section {
-        background: #1e1e1e;
-        color: white;
-    }
-
-    body.dark-mode .about-card {
-        background: #292929;
-        border-color: #444;
-    }
-
-    .about-section {
-        margin: 40px 0;
-        padding: 30px;
-        background: white;
-        border-radius: 16px;
-        color: #222;
-    }
-
-    .about-section h2 {
-        margin-bottom: 15px;
-    }
-
-    .about-section p {
-        line-height: 1.8;
-        margin-bottom: 15px;
-    }
-
-    .about-values {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 15px;
-        margin-top: 25px;
-    }
-
-    .about-card {
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        background: #f8f8f8;
-    }
-
-    .about-card h3 {
-        margin-bottom: 10px;
-        color: #5194cb;
-    }
-`;
-
-document.head.append(darkModeStyle);
-
-const themeButton = document.createElement("button");
-
-themeButton.type = "button";
-themeButton.id = "theme-toggle";
-themeButton.className = "theme-btn round-btn";
-themeButton.setAttribute("aria-label", "Ganti Tema");
-themeButton.title = "Ganti Tema";
-
-const floatingBtns = document.querySelector(".floating-btns");
-const topBtn = document.querySelector(".top-btn");
-
-floatingBtns.insertBefore(themeButton, topBtn);
-
-let currentTheme = localStorage.getItem("gadgetverse-theme") || "light";
-
-function updateTheme() {
-  const isDark = currentTheme === "dark";
-
-  document.body.classList.toggle("dark-mode", isDark);
-
-  themeButton.innerHTML = isDark
-    ? '<i class="fa-solid fa-sun"></i>'
-    : '<i class="fa-solid fa-moon"></i>';
-}
-
-updateTheme();
-
-themeButton.addEventListener("click", () => {
+themeButton.addEventListener("click", (event) => {
   currentTheme = currentTheme === "dark" ? "light" : "dark";
 
   localStorage.setItem("gadgetverse-theme", currentTheme);
@@ -623,95 +497,6 @@ themeButton.addEventListener("click", () => {
   updateTheme();
 });
 
-const aboutSection = document.createElement("section");
-
-aboutSection.id = "tentang-kami";
-aboutSection.className = "about-section";
-
-const aboutTitle = document.createElement("h2");
-aboutTitle.textContent = "Tentang GadgetVerse";
-
-const aboutHistory = document.createElement("p");
-
-aboutHistory.textContent =
-  "GadgetVerse merupakan perusahaan teknologi yang " +
-  "didirikan pada tahun 2000 dengan tujuan memberikan " +
-  "kemudahan bagi masyarakat dalam memperoleh perangkat " +
-  "teknologi berkualitas. Berawal dari sebuah toko kecil " +
-  "yang menyediakan handphone dan aksesori, GadgetVerse " +
-  "terus berkembang mengikuti kemajuan teknologi hingga " +
-  "menjadi platform katalog gadget modern.";
-
-const aboutVisionTitle = document.createElement("h2");
-aboutVisionTitle.textContent = "Visi dan Misi";
-
-const aboutVision = document.createElement("p");
-
-aboutVision.textContent =
-  "Visi kami adalah menjadi platform penyedia informasi " +
-  "dan kebutuhan gadget terpercaya. Misi kami adalah " +
-  "menyediakan produk berkualitas, memberikan pelayanan " +
-  "terbaik, menghadirkan informasi produk yang transparan, " +
-  "serta mengikuti perkembangan teknologi.";
-
-const valuesContainer = document.createElement("div");
-valuesContainer.className = "about-values";
-
-const values = [
-  {
-    title: "Kualitas",
-    description: "Mengutamakan kualitas produk dan kepuasan pelanggan.",
-  },
-  {
-    title: "Kepercayaan",
-    description: "Memberikan informasi produk yang jelas dan transparan.",
-  },
-  {
-    title: "Inovasi",
-    description: "Terus mengikuti perkembangan teknologi terbaru.",
-  },
-];
-
-values.forEach((value) => {
-  const card = document.createElement("article");
-  card.className = "about-card";
-
-  const title = document.createElement("h3");
-  title.textContent = value.title;
-
-  const description = document.createElement("p");
-  description.textContent = value.description;
-
-  card.append(title, description);
-  valuesContainer.append(card);
-});
-
-aboutSection.append(
-  aboutTitle,
-  aboutHistory,
-  aboutVisionTitle,
-  aboutVision,
-  valuesContainer,
-);
-
-const mainElement = document.querySelector("main");
-const modalElement = document.getElementById("spec-modal");
-
-mainElement.insertBefore(aboutSection, modalElement);
-
-const navigationLinks = document.querySelectorAll(".links .link");
-
-navigationLinks.forEach((link) => {
-  if (link.textContent.trim().toLowerCase() === "tentang kami") {
-    link.href = "#tentang-kami";
-  }
-
-  if (link.textContent.trim().toLowerCase() === "katalog hp") {
-    link.href = "#TOP";
-  }
-});
-
+updateTheme();
+renderBrands();
 filterProducts();
-
-console.log("GadgetVerse berhasil diperbarui!");
-console.log("Total produk:", catalogData.length);

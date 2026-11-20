@@ -634,34 +634,37 @@ export const catalogData = [
       Ketahanan: "5 ATM",
       Baterai: "Hingga 16 hari (klaim produsen)",
     },
-    {
-        id: 22,
-        category: "lainnya",
-        highlight: "WORK FROM ANYWHERE",
-        type: "External Hardware",
-        brand: "Logitech",
-        name: "Logitech Pebble M350",
-        price: 249000,
-        discount: 8,
-        description:
-            "Mouse wireless dengan desain minimalis, suara klik senyap, dan bentuk yang mudah dibawa.",
-        spesification: [
-            "Wireless",
-            "Bluetooth",
-            "Silent Click",
-            "Portable",
-            "Optical Sensor",
-        ],
-        detail: {
-            Konektivitas: "Bluetooth dan USB receiver",
-            Sensor: "Optical tracking",
-            Tombol: "3 tombol",
-            Daya: "1 baterai AA",
-            Kompatibilitas: "Windows, macOS, ChromeOS, dan Linux",
-            Fitur: "Silent Click dan desain portable",
-        },
-        imageLink:
-            "https://images.unsplash.com/photo-1527814050087-3793815479db?w=600",
+    imageLink:
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600",
+  },
+  {
+      id: 22,
+      category: "lainnya",
+      highlight: "WORK FROM ANYWHERE",
+      type: "External Hardware",
+      brand: "Logitech",
+      name: "Logitech Pebble M350",
+      price: 249000,
+      discount: 8,
+      description:
+          "Mouse wireless dengan desain minimalis, suara klik senyap, dan bentuk yang mudah dibawa.",
+      spesification: [
+          "Wireless",
+          "Bluetooth",
+          "Silent Click",
+          "Portable",
+          "Optical Sensor",
+      ],
+      detail: {
+          Konektivitas: "Bluetooth dan USB receiver",
+          Sensor: "Optical tracking",
+          Tombol: "3 tombol",
+          Daya: "1 baterai AA",
+          Kompatibilitas: "Windows, macOS, ChromeOS, dan Linux",
+          Fitur: "Silent Click dan desain portable",
+      },
+      imageLink:
+          "https://images.unsplash.com/photo-1527814050087-3793815479db?w=600",
     },
     {
         id: 23,
@@ -723,9 +726,6 @@ export const catalogData = [
         imageLink:
             "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600",
     },
-    imageLink:
-      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600",
-  },
   // =====================================
   // EXTERNAL HARDWARE BARU (25-29)
   // =====================================

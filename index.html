@@ -6,6 +6,7 @@
         <title>GadgetVerse | Katalog Gadget</title>
 
         <link rel="stylesheet" href="assets/index-style.css" />
+        <link rel="stylesheet" href="assets/dark-theme.css" />
 
         <!-- Icon Kit: -->
         <script
@@ -24,9 +25,9 @@
 
             <nav>
                 <ul class="links">
-                    <li><a href="" class="link selected">Katalog HP</a></li>
-                    <li><a href="" class="link">Tentang Kami</a></li>
-                    <li><a href="" class="link">Hubungi Kami</a></li>
+                    <li><a href="#TOP" class="link selected">Katalog HP</a></li>
+                    <li><a href="#tentang-kami" class="link">Tentang Kami</a></li>
+                    <li><a href="#hubungi-kami" class="link">Hubungi Kami</a></li>
                 </ul>
             </nav>
 
@@ -170,6 +171,44 @@
                     <div id="spec-detail"></div>
                 </section>
             </div>
+
+            <section class="about-section" id="tentang-kami">
+                <h2>Tentang Gadgetverse</h2>
+                <p>
+                    GadgetVerse merupakan perusahaan teknologi yang
+                    didirikan pada tahun 2000 dengan tujuan memberikan
+                    kemudahan bagi masyarakat dalam memperoleh perangkat
+                    teknologi berkualitas. Berawal dari sebuah toko kecil
+                    yang menyediakan handphone dan aksesori, GadgetVerse
+                    terus berkembang mengikuti kemajuan teknologi hingga
+                    menjadi platform katalog gadget modern.
+                </p>
+
+                <h2>Visi dan Misi</h2>
+                <p>
+                    Visi kami adalah menjadi pusat katalog gadget terkemuka
+                    di Indonesia, menyediakan berbagai produk berkualitas
+                    dari brand ternama. Misi kami adalah memberikan
+                    pengalaman belanja yang aman, nyaman, dan terpercaya
+                    bagi pelanggan, serta mendukung perkembangan teknologi
+                    di Indonesia.
+                </p>
+
+                <div class="about-values">
+                    <article class="about-card">
+                        <h3>Kualitas</h3>
+                        <p>Mengutamakan kualitas produk dan kepuasan pelanggan.</p>
+                    </article>
+                    <article class="about-card">
+                        <h3>Kepercayaan</h3>
+                        <p>Memberikan informasi produk yang jelas dan transparan.</p>
+                    </article>
+                    <article class="about-card">
+                        <h3>Inovasi</h3>
+                        <p>Terus mengikuti perkembangan teknologi terbaru.</p>
+                    </article>
+                </div>
+            </section>
         </main>
 
         <aside class="floating-btns">
@@ -187,6 +226,10 @@
                     <i class="fa-brands fa-facebook"></i>
                 </button>
             </div>
+
+            <button class="theme-btn round-btn" id="theme-toggle">
+                <i class="fa-solid fa-moon"></i>
+            </button>
 
             <button class="top-btn round-btn" id="top-btn">
                 <i class="fa-solid fa-angles-up"></i>
