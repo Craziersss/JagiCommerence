@@ -6,6 +6,7 @@
         <title>GadgetVerse | Katalog Gadget</title>
 
         <link rel="stylesheet" href="assets/index-style.css" />
+        <link rel="stylesheet" href="assets/dark-theme.css" />
 
         <!-- Icon Kit: -->
         <script
@@ -24,9 +25,9 @@
 
             <nav>
                 <ul class="links">
-                    <li><a href="" class="link selected">Katalog HP</a></li>
-                    <li><a href="" class="link">Tentang Kami</a></li>
-                    <li><a href="" class="link">Hubungi Kami</a></li>
+                    <li><a href="#TOP" class="link">Katalog HP</a></li>
+                    <li><a href="#tentang-kami" class="link">Tentang Kami</a></li>
+                    <li><a href="#hubungi-kami" class="link">Hubungi Kami</a></li>
                 </ul>
             </nav>
 
@@ -53,11 +54,11 @@
                         </p>
 
                         <div class="action">
-                            <button class="highlighted-btn">
+                            <button class="highlighted-btn" id="view-product">
                                 Lihat Produk Handphone
                             </button>
-                            <button class="bone-btn">
-                                Rekomendasi Aksesori
+                            <button class="bone-btn" id="view-accessories">
+                                Rekomendasi
                             </button>
                         </div>
                     </div>
@@ -94,7 +95,7 @@
 
             <section class="brands">
                 <span class="attribute">OFFICIAL BRAND PARTNERS</span>
-                <h1 class="hero-title">belanja Berdasarkan Brand</h1>
+                <h1 class="hero-title">Belanja Berdasarkan Brand</h1>
                 <p class="hero-desc">
                     Cari gadget dan aksesori original langsung dari brand
                     partner resmi kami.
@@ -103,7 +104,7 @@
                 <div class="brands-container" id="brand-container"></div>
             </section>
 
-            <section class="hero">
+            <section class="hero" id="hero">
                 <div class="scattered">
                     <span class="scattered-decor MEGA-SALE"
                         >MEGA SALE 11.11</span
@@ -130,12 +131,23 @@
                     />
                     <button type="button" id="clear-search" class="clear-search">Hapus</button>
                 </div>
-                <div class="category-filter" id="filter-search">
-                    <button type="button" class="category-btn active" data-category="semua">Semua</button>
-                    <button type="button" class="category-btn" data-category="Android">Android</button>
-                    <button type="button" class="category-btn" data-category="Apple">Apple</button>
-                    <button type="button" class="category-btn" data-category="Power Accessories">Power Accessories</button>
-                    <button type="button" class="category-btn" data-category="Audio Gadget">Audio Gadget</button>
+                <div class="filters">
+                    <div class="category-filter" id="filter-search">
+                        <button type="button" class="category-btn active" data-category="semua">Semua</button>
+                        <button type="button" class="category-btn" data-category="Android">Android</button>
+                        <button type="button" class="category-btn" data-category="Apple">Apple</button>
+                        <button type="button" class="category-btn" data-category="Power Accessories">Powerbank</button>
+                        <button type="button" class="category-btn" data-category="Audio Gadget">Audio Gadget</button>
+                        <button type="button" class="category-btn" data-category="External Hardware">External Hardware</button>
+                    </div>
+                    <div class="sort-control">
+                        <label for="sort-price">Urutkan harga</label>
+                        <select id="sort-price">
+                            <option value="default">Urutan awal</option>
+                            <option value="asc">Termurah</option>
+                            <option value="desc">Termahal</option>
+                        </select>
+                    </div>
                 </div>
                 <p id="search-result" class="search-result" aria-live="polite">
                     Menampilkan semua produk
@@ -146,6 +158,10 @@
 
             </div>
 
+            <button type="button" class="load-more-btn" id="load-more-btn">
+                <i class="fa-solid fa-angles-down"></i> Lihat Lebih Banyak
+            </button>
+
             <div class="spec-modal" id="spec-modal">
                 <div class="spec-modal-backdrop" data-close-modal></div>
                 <section class="spec-modal-content" role="dialog" aria-modal="true" aria-labelledby="spec-title">
@@ -155,25 +171,87 @@
                     <div id="spec-detail"></div>
                 </section>
             </div>
+
+            <section class="about-section" id="tentang-kami">
+                <span class="attribute">SHORT INTRODUCTION ABOUT US</span>
+                <h1 class="hero-title">Tentang Gadgetverse</h1>
+                <p>
+                    GadgetVerse merupakan perusahaan teknologi yang
+                    didirikan pada tahun 2000 dengan tujuan memberikan
+                    kemudahan bagi masyarakat dalam memperoleh perangkat
+                    teknologi berkualitas. Berawal dari sebuah toko kecil
+                    yang menyediakan handphone dan aksesori, GadgetVerse
+                    terus berkembang mengikuti kemajuan teknologi hingga
+                    menjadi platform katalog gadget modern.
+                </p>
+
+                <h1 class="hero-title">Visi dan Misi</h1>
+                <p>
+                    Visi kami adalah menjadi pusat katalog gadget terkemuka
+                    di Indonesia, menyediakan berbagai produk berkualitas
+                    dari brand ternama. Misi kami adalah memberikan
+                    pengalaman belanja yang aman, nyaman, dan terpercaya
+                    bagi pelanggan, serta mendukung perkembangan teknologi
+                    di Indonesia.
+                </p>
+
+                <div class="about-values">
+                    <article class="about-card">
+                        <div class="about-card-title">
+                            <i class="fa-solid fa-star fa-2xl" style="color: #5194cb;"></i>
+                            <h3>Kualitas</h3>
+                        </div>
+                        <p>Mengutamakan kualitas produk dan kepuasan pelanggan.</p>
+                    </article>
+                    <article class="about-card">
+                        <div class="about-card-title">
+                            <i class="fa-solid fa-handshake fa-2xl" style="color: #5194cb;"></i>
+                            <h3>Kepercayaan</h3>
+                        </div>
+                        <p>Memberikan informasi produk yang jelas dan transparan.</p>
+                    </article>
+                    <article class="about-card">
+                        <div class="about-card-title">
+                            <i class="fa-solid fa-lightbulb fa-2xl" style="color: #5194cb;"></i>
+                            <h3>Inovasi</h3>
+                        </div>
+                        <p>Terus mengikuti perkembangan teknologi terbaru.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="recomend-section" id="rekomen">
+                <span class="attribute">RECOMENDATION</span>
+                <h1 class="hero-title">Produk Unggulan gadgetverse</h1>
+                <p class="hero-desc">Produk Unggulan kami dengan kualitas tertinggi dan terjamin betah</p>
+
+                <div class="grid-catalogs" id="featured-products">
+
+                </div>
+            </section>
         </main>
 
         <aside class="floating-btns">
             <div class="sosmed-floating-btn">
-                <button class="sosmed-btn round-btn">
+                <button class="sosmed-btn round-btn" aria-label="https://www.instagram.com/soendjajagilbert/">
                     <i class="fa-brands fa-instagram"></i>
                 </button>
-                <button class="sosmed-btn round-btn">
+                <button class="sosmed-btn round-btn" aria-label="https://x.com/?lang=id">
                     <i class="fa-brands fa-x-twitter"></i>
                 </button>
-                <button class="sosmed-btn round-btn">
+                <button class="sosmed-btn round-btn" aria-label="https://www.tiktok.com/id-ID/">
                     <i class="fa-brands fa-tiktok"></i>
                 </button>
-                <button class="sosmed-btn round-btn">
+                <button class="sosmed-btn round-btn" aria-label="https://www.facebook.com/?locale=id_ID">
                     <i class="fa-brands fa-facebook"></i>
                 </button>
             </div>
 
-            <button class="top-btn round-btn">
+            <button class="theme-btn round-btn" id="theme-toggle">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <button class="top-btn round-btn" id="top-btn">
                 <i class="fa-solid fa-angles-up"></i>
             </button>
         </aside>
@@ -207,7 +285,7 @@
             <div class="cart-list-information">
                 <div class="cart-total hidden" id="cart-total">
                     <p class="total-label">Total:</p>
-                    <p class="total-price" id="cart-total-price">Rp 0</p>
+                    <p class="total-price" id="cart-total-price">Rp.0,00</p>
                 </div>
 
                 <button type="button" class="highlighted-btn" id="checkout-btn">
@@ -234,15 +312,15 @@
             </div>
 
             <div class="social-medias">
-                <a href="" class="sosmed">Instagram</a>
-                <a href="" class="sosmed">X</a>
-                <a href="" class="sosmed">Tiktok</a>
-                <a href="" class="sosmed">FaceBook</a>
+                <a href="https://www.instagram.com/soendjajagilbert/" target="_blank" class="sosmed">Instagram</a>
+                <a href="https://x.com/?lang=id" target="_blank" class="sosmed">X</a>
+                <a href="https://www.tiktok.com/id-ID/" target="_blank" class="sosmed">Tiktok</a>
+                <a href="https://www.facebook.com/?locale=id_ID" target="_blank" class="sosmed">FaceBook</a>
             </div>
 
             <div class="discount-reminder-box">
                 <p class="discount-reminder">
-                    Promo Berlaku hingga desember 2026
+                    Promo Berlaku hingga Desember 2026
                 </p>
             </div>
         </footer>
