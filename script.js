@@ -13,11 +13,13 @@ const brandLogo = [
 ];
 
 const viewProductBtn = document.getElementById("view-product");
-const viewAccessoriesBtn = document.getElementById("view-accessories");
+const viewRecomendationBtn = document.getElementById("view-accessories");
 
 const hero = document.getElementById("hero");
 const brandContainer = document.getElementById("brand-container");
 const catalogContainer = document.getElementById("catalog");
+const withGridCatalog = document.querySelectorAll(".grid-catalogs");
+
 const searchInput = document.getElementById("search-product");
 const clearSearchButton = document.getElementById("clear-search");
 const searchResult = document.getElementById("search-result");
@@ -25,6 +27,7 @@ const sortPriceSelect = document.getElementById("sort-price");
 const categoryButtons = document.querySelectorAll(".category-btn");
 const categoryParent = document.getElementById("filter-search");
 const loadMoreBtn = document.getElementById("load-more-btn");
+const featuredContainer = document.getElementById("featured-products");
 
 // variabel untuk semua yang ada di cart
 const cartBtn = document.getElementById("cart-button");
@@ -41,7 +44,7 @@ const specDetail = document.getElementById("spec-detail");
 const specTitle = document.getElementById("spec-title");
 
 const topBtn = document.getElementById("top-btn");
-const floatingBtns = document.querySelector(".floating-btns");
+const socialMediasBtn = document.querySelectorAll(".sosmed-btn");
 const navigationLinks = document.querySelectorAll(".links .link");
 const themeButton = document.getElementById("theme-toggle");
 
@@ -84,8 +87,10 @@ function createTags(datas) {
   return fragment;
 }
 
-function renderCatalog(products, fromSearch = false) {
-    catalogContainer.replaceChildren();
+function renderCatalog(products, fromSearch = false, location = catalogContainer) {
+    location.replaceChildren();
+
+    const fragment = document.createDocumentFragment();
 
     if (products.length === 0) {
         const empty = document.createElement("p");
@@ -171,8 +176,10 @@ function renderCatalog(products, fromSearch = false) {
         // Appending ke container-container nya
         actions.append(buyButton, specButton);
         card.append(attribute, imageContainer, info, actions);
-        catalogContainer.append(card);
+        fragment.append(card);
     });
+
+    location.append(fragment);
 }
 
 function renderCartItems() {
@@ -206,20 +213,29 @@ function renderCartItems() {
     itemQuantity.classList.add("cart-item-quantity");
     itemQuantity.textContent = `Jumlah: ${item.quantity}`;
 
-        const itemPrice = document.createElement("p");
-        itemPrice.classList.add("cart-item-price");
-        itemPrice.textContent = `Harga: Rp.${item.price.toLocaleString("id-ID")},00 per unit`;
+    const itemPrice = document.createElement("p");
+    itemPrice.classList.add("cart-item-price");
+    itemPrice.textContent = `Harga: Rp.${(item.price * item.quantity).toLocaleString("id-ID")},00`;
 
     totalPrice += item.quantity * item.price;
 
+    const actionContainer = document.createElement("div");
+    actionContainer.classList.add("action-container");
+
+    const addButton = document.createElement("button");
+    addButton.classList.add("action-item-btn", "add");
+    addButton.type = "button";
+    addButton.textContent = "+";
+
     const removeButton = document.createElement("button");
-    removeButton.classList.add("remove-item-btn");
+    removeButton.classList.add("action-item-btn", "remove");
     removeButton.type = "button";
     removeButton.textContent = "-";
 
     itemDetails.append(itemName, itemQuantity, itemPrice);
     itemInfo.append(itemImage, itemDetails);
-    cartItem.append(itemInfo, removeButton);
+    actionContainer.append(addButton, removeButton);
+    cartItem.append(itemInfo, actionContainer);
 
     fragment.append(cartItem);
   });
@@ -321,17 +337,31 @@ function updateTheme() {
   document.body.classList.toggle("dark-mode", isDark);
 }
 
+function loadFeaturedCards() {
+  const filtered = catalogData.filter((product) => {
+    return product.highlight.toLowerCase() === "featured";
+  });
+
+  renderCatalog(filtered, false, featuredContainer);
+}
+
+function closeCart() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    cartContainer.classList.add("hidden");
+    cartOverlay.classList.add("hidden");
+    return;
+  }
+
+  cartContainer.classList.add("closing");
+}
+
 // view product and accessories button event listeners
 viewProductBtn.addEventListener("click", () => {
     hero.scrollIntoView({ behavior: "smooth" });
 });
 
-viewAccessoriesBtn.addEventListener("click", () => {
-    hero.scrollIntoView({ behavior: "smooth" });
-
-    activeCategory = "Gadget Accessories";
-
-    filterProducts();
+viewRecomendationBtn.addEventListener("click", () => {
+    featuredContainer.scrollIntoView({ behavior: "smooth" });
 });
 
 // Pendengar Search Bar & Category
@@ -354,6 +384,14 @@ sortPriceSelect.addEventListener("change", () => {
     cardShownLimit = 8;
     filterProducts();
 });
+searchInput.addEventListener("focus", (event) => {
+  const wrap = searchInput.closest(".search-wrap");
+  wrap.style.borderColor = "#5194cb";
+});
+searchInput.addEventListener("blur", (event) => {
+  const wrap = searchInput.closest(".search-wrap");
+  wrap.style.borderColor = "#696969";
+});
 clearSearchButton.addEventListener("click", () => {
   searchInput.value = "";
   filterProducts();
@@ -361,29 +399,32 @@ clearSearchButton.addEventListener("click", () => {
 });
 
 // Pendengar tombol Buy & Spec
-catalogContainer.addEventListener("click", (event) => {
-  const isBuyBtn = event.target.closest(".highlighted-btn");
-  const isSpecBtn = event.target.closest(".bone-btn");
+withGridCatalog.forEach((container) => {
+  container.addEventListener("click", (event) => {
+    const isBuyBtn = event.target.closest(".highlighted-btn");
+    const isSpecBtn = event.target.closest(".bone-btn");
 
-  if (!isBuyBtn && !isSpecBtn) return;
+    if (!isBuyBtn && !isSpecBtn) return;
 
-  const articleID = Number(event.target.closest(".catalog-card").id);
-  const articleParent = catalogData.find((product) => product.id === articleID);
+    const articleID = Number(event.target.closest(".catalog-card").id);
+    const articleParent = catalogData.find((product) => product.id === articleID);
 
-  if (isBuyBtn) {
-    cartCount++;
-    cartBtn.textContent = `keranjang (${cartCount})`;
+    if (isBuyBtn) {
+      cartCount++;
+      cartBtn.textContent = `keranjang (${cartCount})`;
 
-    alert(`Produk "${articleParent.name}" telah ditambahkan ke keranjang.`);
+      alert(`Produk "${articleParent.name}" telah ditambahkan ke keranjang.`);
 
-    cartUpdate(articleParent);
-  } else if (isSpecBtn) {
-    openSpecification(articleParent);
-  }
-});
+      cartUpdate(articleParent);
+    } else if (isSpecBtn) {
+      openSpecification(articleParent);
+    }
+  });
+})
 
 //pendengar tombol cart
 cartBtn.addEventListener("click", () => {
+  cartContainer.classList.remove("closing");
   cartOverlay.classList.remove("hidden");
   cartContainer.classList.remove("hidden");
   cartItemsContainer.replaceChildren();
@@ -400,25 +441,40 @@ cartBtn.addEventListener("click", () => {
   renderCartItems();
 });
 
-cartCloseBtn.addEventListener("click", () => {
-  cartOverlay.classList.add("hidden");
+cartCloseBtn.addEventListener("click", closeCart);
+
+cartContainer.addEventListener("animationend", (event) => {
+  if (
+    event.target !== cartContainer ||
+    event.animationName !== "cart-slide-out" ||
+    !cartContainer.classList.contains("closing")
+  ) {
+    return;
+  }
+
+  cartContainer.classList.remove("closing");
   cartContainer.classList.add("hidden");
+  cartOverlay.classList.add("hidden");
 });
 
 cartItemsContainer.addEventListener("click", (event) => {
-  const isRemoveBtn = event.target.closest(".remove-item-btn");
-  if (!isRemoveBtn) return;
+  const isRemoveBtn = event.target.closest(".remove");
+  const isAddBtn = event.target.closest(".add");
+
+  if (!isRemoveBtn && !isAddBtn) return;
 
   const cartItem = event.target.closest(".cart-item");
   const itemName = cartItem.querySelector(".cart-item-name").textContent;
-  const itemToRemove = listKeranjang.find((item) => item.name === itemName);
+  const itemToAction = listKeranjang.find((item) => item.name === itemName);
 
-  if (itemToRemove) {
-    if (itemToRemove.quantity > 1) {
-      itemToRemove.quantity--;
+  if (itemToAction && isRemoveBtn) {
+    if (itemToAction.quantity > 1) {
+      itemToAction.quantity--;
     } else {
-      listKeranjang = listKeranjang.filter((item) => item !== itemToRemove);
+      listKeranjang = listKeranjang.filter((item) => item !== itemToAction);
     }
+  } else if (itemToAction && isAddBtn) {
+    itemToAction.quantity++;
   }
 
   renderCartItems();
@@ -444,8 +500,7 @@ checkoutBtn.addEventListener("click", () => {
       cartCount = 0;
       cartBtn.textContent = "keranjang (0)";
       cartTotalPrice.textContent = "Rp.0,00";
-      cartOverlay.classList.add("hidden");
-      cartContainer.classList.add("hidden");
+      closeCart();
 
       renderCartItems();
   }
@@ -497,6 +552,17 @@ themeButton.addEventListener("click", (event) => {
   updateTheme();
 });
 
+socialMediasBtn.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    const link = button.getAttribute("aria-label");
+
+    if (!link) return;
+
+    window.open(link);
+  })
+})
+
 updateTheme();
 renderBrands();
 filterProducts();
+loadFeaturedCards();

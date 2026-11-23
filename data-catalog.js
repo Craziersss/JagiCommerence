@@ -216,7 +216,7 @@ export const catalogData = [
   {
     id: 8,
     category: "hp",
-    highlight: "FAVORIT PELANGGAN",
+    highlight: "FEATURED",
     type: "Android",
     brand: "OPPO",
     name: "OPPO Reno11 5G",
@@ -312,7 +312,7 @@ export const catalogData = [
   {
     id: 11,
     category: "hp",
-    highlight: "SMART CHOICE",
+    highlight: "FEATURED",
     type: "Android",
     brand: "Infinix",
     name: "Infinix Note 40 Pro",
@@ -408,7 +408,7 @@ export const catalogData = [
   {
     id: 14,
     category: "tws",
-    highlight: "PREMIUM AUDIO",
+    highlight: "FEATURED",
     type: "Audio Gadget",
     brand: "Samsung",
     name: "Samsung Galaxy Buds FE",
