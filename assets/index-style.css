@@ -21,6 +21,8 @@
   --semi-large-text: 20px;
   --large-text: 26px;
   --extra-large-text: 32px;
+
+  --header-offset: 14rem;
 }
 
 * {
@@ -35,6 +37,19 @@ body {
 
 .hidden {
   display: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#TOP,
+#catalog-start,
+#tentang-kami,
+#footer,
+#hero,
+#rekomen {
+  scroll-margin-top: var(--header-offset);
 }
 
 /*--------------------------------HEADER---------------------------------*/
@@ -798,6 +813,10 @@ footer .tags .tag {
 }
 
 @media (width > 640px) {
+  :root {
+    --header-offset: 6rem;
+  }
+
   header {
     flex-direction: row;
     justify-content: space-around;
