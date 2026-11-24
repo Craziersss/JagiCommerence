@@ -44,6 +44,7 @@ const specDetail = document.getElementById("spec-detail");
 const specTitle = document.getElementById("spec-title");
 
 const topBtn = document.getElementById("top-btn");
+const topSection = document.getElementById("TOP");
 const socialMediasBtn = document.querySelectorAll(".sosmed-btn");
 const navigationLinks = document.querySelectorAll(".links .link");
 const themeButton = document.getElementById("theme-toggle");
@@ -521,6 +522,13 @@ loadMoreBtn.addEventListener("click", () => {
 topBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+const topSectionObserver = new IntersectionObserver((entries) => {
+  const [entry] = entries;
+  topBtn.classList.toggle("hidden", entry.isIntersecting);
+});
+
+topSectionObserver.observe(topSection);
 
 document
   .getElementById("close-modal")
